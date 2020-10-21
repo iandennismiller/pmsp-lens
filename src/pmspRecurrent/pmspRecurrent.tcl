@@ -40,6 +40,10 @@ proc doTraining { testing } {
     exampleSetMode vocab PERMUTED
     useTrainingSet vocab
 
+    setObj vocab.minTime 2.0
+    setObj vocab.maxTime 2.0
+    setObj vocab.graceTime 1.0
+
     # coax network to settle
     train -a steepest -setOnly
     setObj momentum 0.0

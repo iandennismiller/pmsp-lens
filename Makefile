@@ -1,17 +1,20 @@
 # Frequency Dilution
 # 2020-01-11
 
+# PROJECT=frequencyDilution
+PROJECT=pmspRecurrent
+
 all:
 	@echo OK
 
 test:
-	/opt/Lens-linux/Bin/alens.sh src/frequencyDilution/test.tcl
+	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/test.tcl
 
 train:
-	/opt/Lens-linux/Bin/alens.sh src/frequencyDilution/train.tcl
+	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/train.tcl
 
 experiment:
-	/opt/Lens-linux/Bin/alens.sh src/experiment.tcl
+	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/experiment.tcl
 
 test-frequency:
 	/opt/Lens-linux/Bin/alens.sh src/testFrequency/main.tcl
