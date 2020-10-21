@@ -8,7 +8,7 @@ test:
 	/opt/Lens-linux/Bin/alens.sh src/frequencyDilution/test.tcl
 
 train:
-	/opt/Lens-linux/Bin/alens.sh src/train.tcl
+	/opt/Lens-linux/Bin/alens.sh src/frequencyDilution/train.tcl
 
 experiment:
 	/opt/Lens-linux/Bin/alens.sh src/experiment.tcl

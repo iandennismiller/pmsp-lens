@@ -19,7 +19,7 @@ Logger 1
 doTrainingFull
 
 # saveWeights ../results/dilution-epoch-400.wt.gz
-saveWeights ../results/dilution-epoch-200.wt.gz
+saveWeights ../../results/dilution-epoch-200.wt.gz
 
 # saveAccuracyResults "../results/train-debug-target-vowel-accuracy.tsv"
 # saveAccuracyResults "../results/train-debug-most-active-vowel-accuracy.tsv"
@@ -35,6 +35,6 @@ saveWeights ../results/dilution-epoch-200.wt.gz
 # saveAccuracyResults "../results/train-debug-just-dbd-low-momentum.tsv"
 # saveAccuracyResults "../results/train-debug-pseudoexamplefreq.tsv"
 # saveAccuracyResults "../results/train.tsv"
-saveAccuracyResults "../results/train-200.tsv"
+saveAccuracyResults "../../results/train-200.tsv"
 
 exit
