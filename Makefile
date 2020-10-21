@@ -5,19 +5,16 @@ all:
 	@echo OK
 
 test:
-	~/lens-linux/Bin/alens.sh src/test.tcl
+	/opt/Lens-linux/Bin/alens.sh src/frequencyDilution/test.tcl
 
 train:
-	~/lens-linux/Bin/alens.sh src/train.tcl
-
-train-seed-2:
-	~/lens-linux/Bin/alens.sh src/train-seed-2.tcl
+	/opt/Lens-linux/Bin/alens.sh src/train.tcl
 
 experiment:
-	~/lens-linux/Bin/alens.sh src/experiment.tcl
+	/opt/Lens-linux/Bin/alens.sh src/experiment.tcl
 
 test-frequency:
-	~/lens-linux/Bin/alens.sh src/testFrequency/main.tcl
+	/opt/Lens-linux/Bin/alens.sh src/testFrequency/main.tcl
 
 requirements:
 	mkdir ~/.lens-storage

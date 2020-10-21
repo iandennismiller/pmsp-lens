@@ -1,7 +1,7 @@
 # Warping: examining effects of frequency upon regularization
 # 2020-01-12
 
-source frequencyDilution/frequencyDilution.tcl
+source frequencyDilution.tcl
 
 # viewUnits
 # graphObject
