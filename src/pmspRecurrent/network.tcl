@@ -13,9 +13,9 @@ proc pmspRecurrentNetwork { amount } {
     addGroup hidden 100 IN_INTEGR
 
     # output layer
-    addGroup phono_onset 23 IN_INTEGR CROSS_ENTROPY
-    addGroup phono_vowel 14 IN_INTEGR CROSS_ENTROPY
-    addGroup phono_coda 24 IN_INTEGR CROSS_ENTROPY
+    addGroup phono_onset 23 OUTPUT IN_INTEGR CROSS_ENTROPY
+    addGroup phono_vowel 14 OUTPUT IN_INTEGR CROSS_ENTROPY
+    addGroup phono_coda 24 OUTPUT IN_INTEGR CROSS_ENTROPY
 
     # connections
     connectGroups ortho_onset hidden -p FULL
