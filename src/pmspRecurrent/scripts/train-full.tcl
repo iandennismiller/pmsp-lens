@@ -1,7 +1,7 @@
 # Warping: examining effects of frequency upon regularization
 # 2020-01-12
 
-source pmspRecurrent.tcl
+source ../model/pmspRecurrent.tcl
 
 # viewUnits
 # graphObject
@@ -15,9 +15,11 @@ pmspRecurrentSimulation 1
 # initialize logging with an interval of 1
 Logger 1
 
-# train in testing mode, which exist early
-doTrainingTest
+# train full schedule
+doTrainingFull
 
-saveAccuracyResults "../../results/recurrent-test.tsv"
+saveAccuracyResults "../../../results/recurrent-2000.tsv"
+
+saveWeights "../../../results/recurrent-epoch-2000.wt.gz"
 
 exit

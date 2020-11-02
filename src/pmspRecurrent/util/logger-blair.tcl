@@ -27,7 +27,7 @@ proc outTarg {} {
     global f
 
     #list of group outputs to log
-    set gr {o0 o1 o2 o3 o4 o5 o6}
+    set gr {phono_onset phono_vowel phono_coda}
     set ty {output target}
 
     foreach t $ty {
