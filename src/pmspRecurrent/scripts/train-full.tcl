@@ -18,7 +18,7 @@ Logger 1
 # train full schedule
 doTrainingFull
 
-saveAccuracyResults "../../../results/recurrent-2000.tsv"
+# saveAccuracyResults "../../../results/recurrent-2000.tsv"
 
 saveWeights "../../../results/recurrent-epoch-2000.wt.gz"
 
