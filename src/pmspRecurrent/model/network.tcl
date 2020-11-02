@@ -21,9 +21,9 @@ proc pmspRecurrentNetwork { amount } {
     connectGroups ortho_onset hidden -p FULL
     connectGroups ortho_vowel hidden -p FULL
     connectGroups ortho_coda hidden -p FULL
-    connectGroups hidden phono_onset -p FULL
-    connectGroups hidden phono_vowel -p FULL
-    connectGroups hidden phono_coda -p FULL
+    connectGroups hidden phono_onset -p FULL -bidirectional
+    connectGroups hidden phono_vowel -p FULL -bidirectional
+    connectGroups hidden phono_coda -p FULL -bidirectional
 
     useNet "pmspRecurrent${amount}"
 }

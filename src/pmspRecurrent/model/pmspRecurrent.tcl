@@ -1,7 +1,8 @@
 # Warping: examining effects of frequency upon regularization
 # 2020-01-12
 
-source logger.tcl
+source ../util/logger.tcl
+source ../util/logger-blair.tcl
 source network.tcl
 
 proc pmspRecurrentSimulation { amount } {
@@ -19,6 +20,8 @@ proc pmspRecurrentSimulation { amount } {
     setObj reportInterval 10
     setObj targetRadius 0.1
     setObj pseudoExampleFreq 1
+    # setObj input.initInput 0
+    # setObj input.initOutput 0.5
     setLinkValues randMean -1.85 -t bias
 }
 
@@ -36,10 +39,11 @@ proc doTraining { testing } {
     puts "-----"
 
     # load training examples
-    loadExamples ../../examples/pmsp-train.ex -s vocab
+    loadExamples ../../../examples/pmsp-train.ex -s vocab
     exampleSetMode vocab PERMUTED
     useTrainingSet vocab
 
+    # this prevents error from being computed until after the graceTime has passed.
     setObj vocab.minTime 2.0
     setObj vocab.maxTime 2.0
     setObj vocab.graceTime 1.0
@@ -60,7 +64,8 @@ proc doTraining { testing } {
     # perform remaining training
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.85
-    train 174
+    # train 174
+    train 1975
 
     # reset accumulated evidence
     setObj learningRate 0
@@ -74,7 +79,7 @@ proc doTraining { testing } {
 
 proc introduceAnchors { amount } {
     # load frequency-dilution vocab and anchors
-    set example_file "../../examples/pmsp-added-anchors-n${amount}.ex"
+    set example_file "../../../examples/pmsp-added-anchors-n${amount}.ex"
     loadExamples $example_file -s "vocab_anchors${amount}"
     exampleSetMode "vocab_anchors${amount}" PERMUTED
     useTrainingSet "vocab_anchors${amount}"
@@ -89,7 +94,7 @@ proc introduceAnchors { amount } {
 
 proc doTest {} {
     # load testing examples
-    loadExamples ../../examples/probes-new.ex -s test
+    loadExamples ../../../examples/probes-new.ex -s test
 
     test
 }
