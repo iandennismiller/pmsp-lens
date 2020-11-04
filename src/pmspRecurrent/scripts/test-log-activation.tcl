@@ -1,4 +1,4 @@
-source model/pmspRecurrent.tcl
+source ../model/pmspRecurrent.tcl
 
 # viewUnits
 # graphObject
@@ -17,9 +17,9 @@ setObj postExampleProc {outTarg}
 viewUnits
 global f
 
-loadWeights "../../../results/recurrent-epoch-200.wt.gz"
+loadWeights "../../../results/recurrent-epoch-2000.wt.gz"
 
-set f [open "../../../out_test_recurrent.txt" w ]
+set f [open "../../../results/recurrent-activations-epoch-2000.txt" w ]
 doTest
 close $f
 
