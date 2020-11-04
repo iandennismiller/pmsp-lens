@@ -17,7 +17,7 @@ foreach dilutionAmount {1} {
     # initialize logging with an interval of 1
     Logger 1
 
-    loadWeights "../../../results/recurrent-epoch-200.wt.gz"
+    loadWeights "../../../results/recurrent-epoch-350.wt.gz"
 
     puts "-----"
     puts "Introduce anchors: dilution amount = ${dilutionAmount}"
@@ -31,5 +31,5 @@ foreach dilutionAmount {1} {
 
     doTest
 
-    saveAccuracyResults "../../../results/recurrent-200-n${dilutionAmount}-ln2.tsv"
+    saveAccuracyResults "../../../results/recurrent-350-n${dilutionAmount}-ln2.tsv"
 }

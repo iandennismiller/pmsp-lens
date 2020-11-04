@@ -16,10 +16,10 @@ pmspRecurrentSimulation 1
 Logger 1
 
 # train full schedule
-doTrainingFull
+set num_epochs 350
+doTraining $num_epochs
 
-# saveAccuracyResults "../../../results/recurrent-2000.tsv"
-
-saveWeights "../../../results/recurrent-epoch-2000.wt.gz"
+# saveAccuracyResults "../../../results/recurrent-$num_epochs.tsv"
+saveWeights "../../../results/recurrent-epoch-$num_epochs.wt.gz"
 
 exit

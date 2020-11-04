@@ -25,15 +25,8 @@ proc pmspRecurrentSimulation { amount } {
     setLinkValues randMean -1.85 -t bias
 }
 
-proc doTrainingTest {} {
-    doTraining t
-}
-
-proc doTrainingFull {} {
-    doTraining f
-}
-
-proc doTraining { testing } {
+# num_epochs: how many epochs to train for.
+proc doTraining { num_epochs } {
     puts "-----"
     puts "START: training"
     puts "-----"
@@ -53,19 +46,21 @@ proc doTraining { testing } {
     setObj momentum 0.0
     resetNet
 
-    # if the "testing" parameter is true, exit early
-    if { [expr {$testing == "t"} ] } {
+    # if a value below 25 epochs is provided, then this is a debugging run
+    if {$num_epochs <= 25} {
         train 3
-        return
+        set num_epochs_dbd 1
     } else {
+        # otherwise, run first 25 epochs with gradient descent
         train 25
+        set num_epochs_dbd [expr $num_epochs - 25]
+        puts "will train with DBD for ${num_epochs_dbd} epochs"
     }
 
-    # perform remaining training
+    # perform remaining training with delta-bar-delta
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.85
-    # train 174
-    train 1975
+    train $num_epochs_dbd
 
     # reset accumulated evidence
     setObj learningRate 0

@@ -15,9 +15,10 @@ pmspRecurrentSimulation 1
 # initialize logging with an interval of 1
 Logger 1
 
-# train in testing mode, which exist early
-doTrainingTest
+# train in testing mode, which exits early
+set num_epochs 3
+doTraining $num_epochs
 
-saveAccuracyResults "../../../results/recurrent-test.tsv"
+# saveAccuracyResults "../../../results/recurrent-test.tsv"
 
 exit
