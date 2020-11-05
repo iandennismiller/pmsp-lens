@@ -16,7 +16,7 @@ pmspRecurrentSimulation 1
 Logger 1
 
 # train full schedule
-set num_epochs 350
+set num_epochs 700
 doTraining $num_epochs
 
 # saveAccuracyResults "../../../results/recurrent-$num_epochs.tsv"

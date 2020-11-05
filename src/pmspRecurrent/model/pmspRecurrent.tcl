@@ -2,7 +2,6 @@
 # 2020-01-12
 
 source ../util/logger.tcl
-source ../util/logger-blair.tcl
 source network.tcl
 
 proc pmspRecurrentSimulation { amount } {

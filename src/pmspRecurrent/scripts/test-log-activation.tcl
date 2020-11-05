@@ -12,15 +12,22 @@ pmspRecurrentSimulation 1
 # initialize logging with an interval of 1
 Logger 1
 
-setObj postExampleProc {outTarg}
+setObj postExampleProc {log_activations_hook}
 # Need to view units to be able to access the history arrays.
 viewUnits
-global f
 
-loadWeights "../../../results/recurrent-epoch-2000.wt.gz"
+set epochs 2000
 
-set f [open "../../../results/recurrent-activations-epoch-2000.txt" w ]
-doTest
-close $f
+global log_outputs_filename
+set log_outputs_filename [open "../../../results/recurrent-${epochs}-activations-output.txt" w ]
+
+global log_hidden_filename
+set log_hidden_filename [open "../../../results/recurrent-${epochs}-activations-hidden.txt" w ]
+
+loadWeights "../../../results/recurrent-epoch-${epochs}.wt.gz"
+loadExamples ../../../examples/pmsp-train.ex -s test
+test
+close $log_outputs_filename
+close $log_hidden_filename
 
 setObj postExampleProc {}
