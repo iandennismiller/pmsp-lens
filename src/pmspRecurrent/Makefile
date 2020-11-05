@@ -7,11 +7,11 @@ all:
 train-debug:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-debug.tcl
 
-train-full:
+train:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-full.tcl
 
 experiment:
 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 
 activations:
-	time /opt/Lens-linux/Bin/alens.sh scripts/test-log-activation.tcl
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations.tcl

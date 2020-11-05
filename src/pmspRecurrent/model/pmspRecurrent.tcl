@@ -31,7 +31,7 @@ proc doTraining { num_epochs } {
     puts "-----"
 
     # load training examples
-    loadExamples ../../../examples/pmsp-train.ex -s vocab
+    loadExamples ../../../usr/examples/pmsp-train.ex -s vocab
     exampleSetMode vocab PERMUTED
     useTrainingSet vocab
 
@@ -73,7 +73,7 @@ proc doTraining { num_epochs } {
 
 proc introduceAnchors { amount } {
     # load frequency-dilution vocab and anchors
-    set example_file "../../../examples/pmsp-added-anchors-n${amount}.ex"
+    set example_file "../../../usr/examples/pmsp-added-anchors-n${amount}.ex"
     loadExamples $example_file -s "vocab_anchors${amount}"
     exampleSetMode "vocab_anchors${amount}" PERMUTED
     useTrainingSet "vocab_anchors${amount}"
@@ -88,7 +88,7 @@ proc introduceAnchors { amount } {
 
 proc doTest {} {
     # load testing examples
-    loadExamples ../../../examples/probes-new.ex -s test
+    loadExamples ../../../usr/examples/probes-new.ex -s test
 
     test
 }

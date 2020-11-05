@@ -20,6 +20,6 @@ set num_epochs 700
 doTraining $num_epochs
 
 # saveAccuracyResults "../../../results/recurrent-$num_epochs.tsv"
-saveWeights "../../../results/recurrent-epoch-$num_epochs.wt.gz"
+saveWeights "../../../var/saved-weights/recurrent-epoch-$num_epochs.wt.gz"
 
 exit

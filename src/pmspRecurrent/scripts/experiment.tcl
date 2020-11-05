@@ -17,7 +17,7 @@ foreach dilutionAmount {1} {
     # initialize logging with an interval of 1
     Logger 1
 
-    loadWeights "../../../results/recurrent-epoch-350.wt.gz"
+    loadWeights "../../../var/saved-weights/recurrent-epoch-350.wt.gz"
 
     puts "-----"
     puts "Introduce anchors: dilution amount = ${dilutionAmount}"
