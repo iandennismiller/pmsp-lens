@@ -7,8 +7,8 @@ all:
 train-debug:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-debug.tcl
 
-train:
-	time /opt/Lens-linux/Bin/alens.sh scripts/train-full.tcl
+train-pmsp:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp.tcl
 
 train-jepg2017:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-jepg2017.tcl
