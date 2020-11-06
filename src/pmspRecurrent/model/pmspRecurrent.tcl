@@ -4,6 +4,8 @@
 source ../util/logger.tcl
 source network.tcl
 
+set weights_path "../../../var/saved-weights"
+
 proc pmspRecurrentSimulation { amount } {
     # create PMSP network
     pmspRecurrentNetwork $amount
@@ -24,8 +26,66 @@ proc pmspRecurrentSimulation { amount } {
     setLinkValues randMean -1.85 -t bias
 }
 
+
+proc run_experiment { dilution_amounts num_epochs test_procedure } {
+    global weights_path
+    foreach dilution_amount $dilution_amounts {
+        # reproducible results
+        seed 1
+
+        # initialize simulation with dilution amount
+        pmspRecurrentSimulation $dilution_amount
+
+        # initialize logging with an interval of 1
+        Logger 1
+
+        puts "-----"
+        puts "Test: dilution amount = ${dilution_amount}, epochs = ${num_epochs}"
+        puts "-----"
+
+        loadWeights "${weights_path}/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.wt.gz"
+
+        $test_procedure
+
+        saveAccuracyResults "../../../results/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.tsv"
+    }
+}
+
+
+proc train_anchors { dilution_amount base_vocab_epochs anchors_epochs } {
+    global weights_path
+    set delta_bar_delta_momentum 0.85
+
+    puts "-----"
+    puts "Load trained base vocabulary weights: epoch = ${base_vocab_epochs}"
+    puts "-----"
+
+    loadWeights "${weights_path}/recurrent-epoch-${base_vocab_epochs}-pmsp.wt.gz"
+
+    puts "-----"
+    puts "Introduce anchors: dilution amount = ${dilution_amount}"
+    puts "-----"
+
+    introduceAnchors $dilution_amount
+
+    puts "-----"
+    puts "Train using delta-bar-delta with base vocab plus anchors: dilution level = ${dilution_amount}, epochs = ${anchors_epochs} momentum = ${delta_bar_delta_momentum}"
+    puts "-----"
+
+    train -a "deltaBarDelta" -setOnly
+    setObj momentum $delta_bar_delta_momentum
+    train $anchors_epochs
+
+    set total_epochs [expr $base_vocab_epochs + $anchors_epochs]
+
+    saveWeights "${weights_path}/recurrent-epoch-${total_epochs}-dilution-${dilution_amount}.wt.gz"
+}
+
+
 # num_epochs: how many epochs to train for.
-proc doTraining { num_epochs } {
+proc train_base_vocabulary { num_epochs } {
+    global weights_path
+
     puts "-----"
     puts "START: training"
     puts "-----"
@@ -69,6 +129,8 @@ proc doTraining { num_epochs } {
     puts "-----"
     puts "END: training"
     puts "-----"
+
+    saveWeights "${weights_path}/recurrent-epoch-${num_epochs}-pmsp.wt.gz"
 }
 
 proc introduceAnchors { amount } {
@@ -81,14 +143,24 @@ proc introduceAnchors { amount } {
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.9
     setObj learningRate 0.0008
-
-    # train 200
-    train 50
 }
 
-proc doTest {} {
-    # load testing examples
-    loadExamples ../../../usr/examples/probes-new.ex -s test
+proc test_base {} {
+    loadExamples "../../../usr/examples/pmsp-train.ex" -s test
+    test
+}
 
+proc test_anchors {} {
+    loadExamples "../../../usr/examples/anchors-n1.ex" -s test
+    test
+}
+
+proc test_probes {} {
+    loadExamples "../../../usr/examples/probes-new.ex" -s test
+    test
+}
+
+proc test_anchors_probes {} {
+    loadExamples "../../../usr/examples/pmsp-added-anchors-n1.ex" -s test
     test
 }

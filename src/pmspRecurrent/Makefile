@@ -10,6 +10,9 @@ train-debug:
 train:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-full.tcl
 
+train-jepg2017:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-jepg2017.tcl
+
 experiment:
 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 

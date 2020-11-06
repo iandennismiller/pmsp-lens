@@ -6,30 +6,8 @@ source ../model/pmspRecurrent.tcl
 # viewUnits
 # graphObject
 
-# foreach dilutionAmount {1 2 3} {
-foreach dilutionAmount {1} {
-    # reproducible results
-    seed 1
+set dilution_amounts {1}
+set num_epochs 40
+set test_procedure test_probes
 
-    # initialize simulation with dilution amount
-    pmspRecurrentSimulation $dilutionAmount
-
-    # initialize logging with an interval of 1
-    Logger 1
-
-    loadWeights "../../../var/saved-weights/recurrent-epoch-350.wt.gz"
-
-    puts "-----"
-    puts "Introduce anchors: dilution amount = ${dilutionAmount}"
-    puts "-----"
-
-    introduceAnchors $dilutionAmount
-
-    puts "-----"
-    puts "Test: dilution amount = ${dilutionAmount}"
-    puts "-----"
-
-    doTest
-
-    saveAccuracyResults "../../../results/recurrent-350-n${dilutionAmount}-ln2.tsv"
-}
+run_experiment $dilution_amounts $num_epochs $test_procedure

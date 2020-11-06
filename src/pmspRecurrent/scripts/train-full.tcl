@@ -16,10 +16,9 @@ pmspRecurrentSimulation 1
 Logger 1
 
 # train full schedule
-set num_epochs 700
-doTraining $num_epochs
+set num_epochs 30
+train_base_vocabulary $num_epochs
 
 # saveAccuracyResults "../../../results/recurrent-$num_epochs.tsv"
-saveWeights "../../../var/saved-weights/recurrent-epoch-$num_epochs.wt.gz"
 
 exit

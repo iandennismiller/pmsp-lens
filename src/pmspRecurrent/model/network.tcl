@@ -2,7 +2,7 @@
 # 2020-01-12
 
 proc pmspRecurrentNetwork { amount } {
-    addNet "pmspRecurrent${amount}" -i 2 -t 5 CONTINUOUS
+    addNet "pmspRecurrent${amount}" -i 2 -t 20 CONTINUOUS
 
     # input layer
     addGroup ortho_onset 30 INPUT

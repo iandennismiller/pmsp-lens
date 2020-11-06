@@ -15,9 +15,13 @@ pmspRecurrentSimulation 1
 # initialize logging with an interval of 1
 Logger 1
 
-# train in testing mode, which exits early
-set num_epochs 3
-train_base_vocabulary $num_epochs
+set dilution_amounts { 1 }
+set base_vocab_epochs 30
+set anchors_epochs 10
+
+foreach dilution_amount $dilution_amounts {
+    train_anchors $dilution_amount $base_vocab_epochs $anchors_epochs
+}
 
 # saveAccuracyResults "../../../results/recurrent-test.tsv"
 
