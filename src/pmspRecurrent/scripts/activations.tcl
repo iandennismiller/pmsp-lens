@@ -2,37 +2,36 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-source ../model/pmspRecurrent.tcl
+source ../pmspRecurrent.tcl
+source ../util/activations.tcl
 
-# viewUnits
-# graphObject
+set epochs 2000
+set weights_path "../../../var/saved-weights"
+set examples_path "../../../usr/examples"
+set results_path "../../../results"
 
-# reproducible results
 seed 1
+pmspRecurrentSimulation "pmsp"
 
-# initialize simulation with dilution amount = 1
-pmspRecurrentSimulation 1
+# load a network that has been already trained
+loadWeights "${weights_path}/recurrent-epoch-${epochs}-pmsp.wt.gz"
 
-# initialize logging with an interval of 1
-Logger 1
-
-setObj postExampleProc {log_activations_hook}
-# Need to view units to be able to access the history arrays.
-viewUnits
-# graphObject
-
-set epochs 700
+# load the base PMSP vocabulary for testing
+loadExamples "${examples_path}/pmsp-train.ex" -s test
 
 global log_outputs_filename
-set log_outputs_filename [open "../../../results/recurrent-${epochs}-activations-output.txt" w ]
+set log_outputs_filename [open "${results_path}/recurrent-${epochs}-activations-output.txt" w ]
 
 global log_hidden_filename
-set log_hidden_filename [open "../../../results/recurrent-${epochs}-activations-hidden.txt" w ]
+set log_hidden_filename [open "${results_path}/recurrent-${epochs}-activations-hidden.txt" w ]
 
-loadWeights "../../../var/saved-weights/recurrent-epoch-${epochs}.wt.gz"
-loadExamples ../../../usr/examples/pmsp-train.ex -s test
+# install hook to log activations
+setObj postExampleProc { log_activations_hook }
+
+# Need to view units to be able to access the history arrays.
+viewUnits
+
 test
+
 close $log_outputs_filename
 close $log_hidden_filename
-
-setObj postExampleProc {}

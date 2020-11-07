@@ -2,7 +2,7 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-proc introduceBaseVocabulary { examples_path } {
+proc introduce_base_vocabulary { examples_path } {
     loadExamples "${examples_path}/pmsp-train.ex" -s vocab
     exampleSetMode vocab PERMUTED
     useTrainingSet vocab
@@ -14,7 +14,7 @@ proc introduceBaseVocabulary { examples_path } {
     setObj vocab.graceTime 1.0
 }
 
-proc introduceAnchors { amount examples_path } {
+proc introduce_anchors { amount examples_path } {
     # load frequency-dilution vocab and anchors
     set example_file "${examples_path}/pmsp-added-anchors-n${amount}.ex"
     loadExamples $example_file -s "vocab_anchors${amount}"

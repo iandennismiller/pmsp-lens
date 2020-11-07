@@ -2,7 +2,7 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-source ../model/pmspRecurrent.tcl
+source ../pmspRecurrent.tcl
 
 set dilution_amounts { 1 }
 set num_epochs 40

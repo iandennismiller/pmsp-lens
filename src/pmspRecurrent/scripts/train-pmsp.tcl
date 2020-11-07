@@ -2,7 +2,7 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-source ../model/pmspRecurrent.tcl
+source ../pmspRecurrent.tcl
 
 set num_epochs 2000
 set weights_path "../../../var/saved-weights"

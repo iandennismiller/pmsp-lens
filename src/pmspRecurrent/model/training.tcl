@@ -13,7 +13,7 @@ proc train_base_vocabulary { num_epochs weights_path examples_path } {
     puts "-----"
 
     # load training examples
-    introduceBaseVocabulary $examples_path
+    introduce_base_vocabulary $examples_path
 
     # coax network to settle
     train -a steepest -setOnly
@@ -61,7 +61,7 @@ proc train_anchors { dilution_amount base_vocab_epochs anchors_epochs weights_pa
     puts "Introduce anchors: dilution amount = ${dilution_amount}"
     puts "-----"
 
-    introduceAnchors $dilution_amount $examples_path
+    introduce_anchors $dilution_amount $examples_path
 
     puts "-----"
     puts "Train using delta-bar-delta with base vocab plus anchors: dilution level = ${dilution_amount}, epochs = ${anchors_epochs} momentum = ${delta_bar_delta_momentum}"

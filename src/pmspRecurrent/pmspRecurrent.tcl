@@ -2,12 +2,12 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-source ../util/logger.tcl
-source examples.tcl
-source training.tcl
-source testing.tcl
-source recurrentNetwork.tcl
-source feedForwardNetwork.tcl
+source util/logger.tcl
+source model/examples.tcl
+source model/training.tcl
+source model/testing.tcl
+source model/network_recurrent.tcl
+source model/network_feed_forward.tcl
 
 
 proc pmspRecurrentSimulation { label } {
