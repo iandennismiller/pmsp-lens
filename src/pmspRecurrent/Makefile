@@ -5,7 +5,7 @@ all:
 	@echo OK
 
 train-debug:
-	time /opt/Lens-linux/Bin/alens.sh scripts/train-debug.tcl
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp-debug.tcl
 
 train-pmsp:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp.tcl

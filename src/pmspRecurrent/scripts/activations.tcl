@@ -1,3 +1,7 @@
+# pmsp-lens
+# Ian Dennis Miller
+# 2020-11-07
+
 source ../model/pmspRecurrent.tcl
 
 # viewUnits
@@ -15,6 +19,7 @@ Logger 1
 setObj postExampleProc {log_activations_hook}
 # Need to view units to be able to access the history arrays.
 viewUnits
+# graphObject
 
 set epochs 700
 

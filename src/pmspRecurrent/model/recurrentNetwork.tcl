@@ -1,8 +1,9 @@
-# Warping: examining effects of frequency upon regularization
-# 2020-01-12
+# pmsp-lens
+# Ian Dennis Miller
+# 2020-11-07
 
-proc pmspRecurrentNetwork { amount } {
-    addNet "pmspRecurrent${amount}" -i 2 -t 20 CONTINUOUS
+proc pmspRecurrentNetwork { label } {
+    addNet "pmspRecurrent${label}" -i 2 -t 20 CONTINUOUS
 
     # input layer
     addGroup ortho_onset 30 INPUT
@@ -25,5 +26,5 @@ proc pmspRecurrentNetwork { amount } {
     connectGroups hidden phono_vowel -p FULL -bidirectional
     connectGroups hidden phono_coda -p FULL -bidirectional
 
-    useNet "pmspRecurrent${amount}"
+    useNet "pmspRecurrent${label}"
 }
