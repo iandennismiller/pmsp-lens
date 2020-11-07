@@ -16,7 +16,7 @@ pmspRecurrentSimulation 1
 Logger 1
 
 set dilution_amounts { 1 2 3 }
-set base_vocab_epochs 30
+set base_vocab_epochs 2000
 set anchors_epochs 10
 
 foreach dilution_amount $dilution_amounts {

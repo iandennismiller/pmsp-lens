@@ -29,26 +29,25 @@ proc pmspRecurrentSimulation { amount } {
 
 proc run_experiment { dilution_amounts num_epochs test_procedure } {
     global weights_path
-    foreach dilution_amount $dilution_amounts {
-        # reproducible results
-        seed 1
 
-        # initialize simulation with dilution amount
-        pmspRecurrentSimulation $dilution_amount
+    # reproducible results
+    seed 1
 
-        # initialize logging with an interval of 1
-        Logger 1
+    # initialize simulation with dilution amount
+    pmspRecurrentSimulation $dilution_amount
 
-        puts "-----"
-        puts "Test: dilution amount = ${dilution_amount}, epochs = ${num_epochs}"
-        puts "-----"
+    # initialize logging with an interval of 1
+    Logger 1
 
-        loadWeights "${weights_path}/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.wt.gz"
+    puts "-----"
+    puts "Test: dilution amount = ${dilution_amount}, epochs = ${num_epochs}"
+    puts "-----"
 
-        $test_procedure
+    loadWeights "${weights_path}/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.wt.gz"
 
-        saveAccuracyResults "../../../results/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.tsv"
-    }
+    $test_procedure
+
+    saveAccuracyResults "../../../results/recurrent-epoch-${num_epochs}-dilution-${dilution_amount}.tsv"
 }
 
 
