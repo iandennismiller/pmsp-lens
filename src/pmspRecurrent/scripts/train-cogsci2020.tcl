@@ -17,7 +17,7 @@ Logger 1
 
 set dilution_amounts { 1 2 3 }
 set base_vocab_epochs 2000
-set anchors_epochs 10
+set anchors_epochs 2000
 
 foreach dilution_amount $dilution_amounts {
     train_anchors $dilution_amount $base_vocab_epochs $anchors_epochs

@@ -11,7 +11,10 @@ train-pmsp:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp.tcl
 
 train-jepg2017:
-	time /opt/Lens-linux/Bin/alens.sh scripts/train-jepg2017.tcl
+	echo time /opt/Lens-linux/Bin/alens.sh scripts/train-jepg2017.tcl
+
+train-cogsci2020:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci2020.tcl
 
 experiment:
 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
