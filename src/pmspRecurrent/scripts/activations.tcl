@@ -8,7 +8,7 @@ source ../util/activations.tcl
 set epochs 2000
 set weights_path "../../../var/saved-weights"
 set examples_path "../../../usr/examples"
-set results_path "../../../results"
+set results_path "../../../results/2020-11-09"
 
 seed 1
 pmspRecurrentSimulation "pmsp"
@@ -17,7 +17,8 @@ pmspRecurrentSimulation "pmsp"
 loadWeights "${weights_path}/recurrent-epoch-${epochs}-pmsp.wt.gz"
 
 # load the base PMSP vocabulary for testing
-loadExamples "${examples_path}/pmsp-train.ex" -s test
+# loadExamples "${examples_path}/pmsp-train.ex" -s test
+loadExamples "${examples_path}/fig18-test.ex" -s test
 
 global log_outputs_filename
 set log_outputs_filename [open "${results_path}/recurrent-${epochs}-activations-output.txt" w ]
