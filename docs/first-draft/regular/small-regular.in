@@ -1,0 +1,19 @@
+# Quasiregularity
+# 2019 Ian Dennis Miller
+# Small-Scale Network, Regular Language
+# Based on Psychol Rev. 2013 October; 120(4): 903–916. doi:10.1037/a0034195.
+
+addNet regular
+addGroup input 3 INPUT
+addGroup hidden 3
+addGroup output 3 OUTPUT
+connectGroups input hidden -p FULL
+connectGroups hidden output -p FULL
+
+# setObj learningRate 0.01
+
+loadExamples small-regular-train.ex -s train
+loadExamples small-regular-test.ex -s test
+
+viewUnits
+graphObject
