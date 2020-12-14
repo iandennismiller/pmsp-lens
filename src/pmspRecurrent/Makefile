@@ -4,7 +4,7 @@
 all:
 	@echo OK
 
-train-debug:
+train-pmsp-debug:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp-debug.tcl
 
 train-pmsp:
@@ -19,5 +19,5 @@ train-cogsci2020:
 experiment:
 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 
-activations:
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations.tcl
+activations-fig18:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18.tcl

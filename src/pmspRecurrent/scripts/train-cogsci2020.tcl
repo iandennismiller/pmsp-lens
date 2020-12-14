@@ -9,7 +9,7 @@ set base_vocab_epochs 2000
 set anchors_epochs 2000
 set weights_path "../../../var/saved-weights"
 set examples_path "../../../usr/examples"
-set results_path "../../../results"
+set results_path "../../../results/2020-12-07"
 
 foreach dilution_amount $dilution_amounts {
     seed 1

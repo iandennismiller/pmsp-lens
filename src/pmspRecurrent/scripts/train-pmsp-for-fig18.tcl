@@ -13,6 +13,8 @@ set results_path "../../../results/2020-12-11"
 seed 1
 pmspRecurrentSimulation "pmsp"
 
+loadExamples "${examples_path}/fig18-test.ex" -s test
+
 global log_outputs_filename
 set log_outputs_filename [open "${results_path}/recurrent-${num_epochs}-activations-output.txt" w ]
 
