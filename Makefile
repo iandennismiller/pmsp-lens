@@ -1,23 +1,8 @@
 # Frequency Dilution
 # 2020-01-11
 
-# PROJECT=frequencyDilution
-PROJECT=pmspRecurrent
-
 all:
 	@echo OK
-
-test:
-	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/test.tcl
-
-train:
-	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/train.tcl
-
-experiment:
-	/opt/Lens-linux/Bin/alens.sh src/$(PROJECT)/experiment.tcl
-
-test-frequency:
-	/opt/Lens-linux/Bin/alens.sh src/testFrequency/main.tcl
 
 requirements:
 	mkdir ~/.lens-storage
@@ -31,7 +16,4 @@ lens:
 		-v ~/.lens-storage:/home/lens/storage \
 		iandennismiller/lens
 
-products:
-	cp R/frequency-dilution/*.html products
-
-.PHONY: all test train train-seed-2 experiment test-frequency requirements lens products
+.PHONY: all requirements lens

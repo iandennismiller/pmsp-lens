@@ -4,14 +4,20 @@
 all:
 	@echo OK
 
-train-debug:
-	/opt/Lens-linux/Bin/alens.sh scripts/train-debug.tcl
+train-pmsp-debug:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp-debug.tcl
 
-train-full:
-	/opt/Lens-linux/Bin/alens.sh scripts/train-full.tcl
+train-pmsp:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp.tcl
+
+train-jepg2017:
+	echo time /opt/Lens-linux/Bin/alens.sh scripts/train-jepg2017.tcl
+
+train-cogsci2020:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci2020.tcl
 
 experiment:
-	/opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
+	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 
-activations:
-	/opt/Lens-linux/Bin/alens.sh scripts/test-log-activation.tcl
+activations-fig18:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18.tcl

@@ -1,39 +1,34 @@
-# quasiregularity-lens
+# pmsp-lens
 
-## Quick Start
+## Lens
 
-### Set up a Lens container using Docker
+Create a folder `~/.lens-storage` for sharing data with a docker image and then clone this repository into that space.
 
-This requires [Docker](https://www.docker.com/get-started) to be installed.
-
-```bash
+```{bash}
 make requirements
+```
+
+Run Lens inside a Docker image with access to `~/.lens-storage`.
+
+```{bash}
 make lens
 ```
 
-### Log in to container using VNC
+## PMSP
 
-- [TigerVNC](https://github.com/TigerVNC/tigervnc/releases) is the recommended VNC viewer for connecting to the container.
-- [RealVNC](https://www.realvnc.com/en/connect/download/viewer/) is a classic VNC viewer.
-- [UltraVNC](https://www.uvnc.com/downloads/ultravnc.html) is a good VNC viewer for Windows.
+### Study 3: Recurrent
 
-```bash
-vncviewer localhost:1
-```
+The PMSP network topology is specified with a recurrent link upon the output layer.
+The recurrence is specified in the code as a bidirectional link from the output to itself.
 
-The password is `vnc123`.
+To train the network and produce activations for hidden and output units, perform the following:
 
-### Run the experiment
-
-Open the terminal from the desktop dock and run the following:
-
-```bash
-cd ~/storage/quasiregularity-lens
+```{bash}
+cd src/pmspRecurrent
 make train
-make experiment
+make activations
 ```
 
-### Results
+#### Results
 
-Results will be in `./results`.
-Results are also visible from the host machine at `~/.lens-storage/quasiregularity-lens/results`.
+- [2020-11-05](results/2020-11-05)
