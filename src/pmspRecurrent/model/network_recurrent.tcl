@@ -25,6 +25,7 @@ proc pmspRecurrentNetwork { label } {
     connectGroups hidden phono_onset -p FULL -bidirectional
     connectGroups hidden phono_vowel -p FULL -bidirectional
     connectGroups hidden phono_coda -p FULL -bidirectional
+    connectGroups {phono_onset phono_vowel phono_coda} {phono_onset phono_vowel phono_coda}
 
     useNet "pmspRecurrent${label}"
 }
