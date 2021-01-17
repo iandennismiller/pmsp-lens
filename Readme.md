@@ -14,6 +14,13 @@ Run Lens inside a Docker image with access to `~/.lens-storage`.
 make lens
 ```
 
+## VNC on a remote host
+
+```{bash}
+~/.vnc/vncserver start
+export DISPLAY=:6
+```
+
 ## PMSP
 
 ### Study 3: Recurrent

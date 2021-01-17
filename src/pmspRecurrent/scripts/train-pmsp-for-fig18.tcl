@@ -6,9 +6,9 @@ source ../pmspRecurrent.tcl
 source ../util/activations.tcl
 
 set num_epochs 2000
-set weights_path "../../../var/saved-weights-debug"
+set weights_path "../../var/saved-weights-debug"
 set examples_path "../../../usr/examples"
-set results_path "../../../results/2020-12-11"
+set results_path "../../var/results/2021-01-17"
 
 seed 1
 pmspRecurrentSimulation "pmsp"
