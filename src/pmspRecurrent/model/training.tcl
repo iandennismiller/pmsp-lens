@@ -2,7 +2,7 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-set delta_bar_delta_momentum 0.85
+set delta_bar_delta_momentum 0.9
 
 # num_epochs: how many epochs to train for.
 proc train_base_vocabulary { num_epochs weights_path examples_path } {
@@ -25,9 +25,9 @@ proc train_base_vocabulary { num_epochs weights_path examples_path } {
         train 3
         set num_epochs_dbd 1
     } else {
-        # otherwise, run first 25 epochs with gradient descent
-        train 25
-        set num_epochs_dbd [expr $num_epochs - 25]
+        # otherwise, run first 10 epochs with gradient descent
+        train 10
+        set num_epochs_dbd [expr $num_epochs - 10]
         puts "will train with DBD for ${num_epochs_dbd} epochs"
     }
 
