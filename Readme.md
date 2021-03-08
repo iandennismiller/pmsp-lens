@@ -1,5 +1,7 @@
 # pmsp-lens
 
+https://ni.cmu.edu/~plaut/Lens/Manual/
+
 ## Lens
 
 Create a folder `~/.lens-storage` for sharing data with a docker image and then clone this repository into that space.
@@ -32,7 +34,7 @@ To train the network and produce activations for hidden and output units, perfor
 
 ```{bash}
 cd src/pmspRecurrent
-make train
+make train-pmsp
 make activations
 ```
 

@@ -26,13 +26,17 @@ proc train_base_vocabulary { num_epochs weights_path examples_path } {
         set num_epochs_dbd 1
     } else {
         # otherwise, run first 10 epochs with gradient descent
-        train 10
-        set num_epochs_dbd [expr $num_epochs - 10]
+        train 25
+        set num_epochs_dbd [expr $num_epochs - 25]
         puts "will train with DBD for ${num_epochs_dbd} epochs"
     }
 
     # perform remaining training with delta-bar-delta
     train -a "deltaBarDelta" -setOnly
+
+    # puts "Train with Dougs Momentum"
+    # train -a "dougsMomentum" -setOnly
+    
     setObj momentum $delta_bar_delta_momentum
     train $num_epochs_dbd
 

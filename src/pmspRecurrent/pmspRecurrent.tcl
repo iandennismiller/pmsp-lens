@@ -17,10 +17,10 @@ proc pmspRecurrentSimulation { label } {
     # setObj numUpdates 700
     # "lens lr" must be double to correct for missing '*2'; actual is 0.0008
     # setObj learningRate 0.0008
-    # setObj learningRate 0.00016
-    setObj learningRate 0.05
-    # setObj weightDecay 0.000001
+    setObj learningRate 0.00016
+    # setObj learningRate 0.05
     setObj weightDecay 0.00000
+    # setObj weightDecay 0.00000
     # setObj trainGroupCrit 0.5
     setObj randRange 0.1
     setObj reportInterval 10

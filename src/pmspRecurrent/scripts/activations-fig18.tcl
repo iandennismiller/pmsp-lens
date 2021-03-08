@@ -6,9 +6,11 @@ source ../pmspRecurrent.tcl
 source ../util/activations.tcl
 
 set num_epochs 2000
-set weights_path "../../../var/saved-weights-recurrent-dt-20"
+
+# these are relative to ./scripts
+set weights_path "../../../var/saved-weights-recurrent-dt-20-3"
 set examples_path "../../../usr/examples"
-set results_path "../../../var/results/2020-12-21-3"
+set results_path "../../../var/results/2021-01-19-1"
 
 global log_outputs_filename
 set log_outputs_filename [open "${results_path}/recurrent-training-activations-output.txt" w ]
@@ -36,8 +38,11 @@ viewUnits -updates 3
 # could set target history property?
 # consider testing the "-numexamples 2" and manually run through a couple
 
-for { set epoch 0 }  { $epoch <= 2000 } { incr epoch 100 } {
-    puts "value of epoch: $epoch"
+# For now, manually set the epoch
+set epoch 2000
+
+# for { set epoch 0 }  { $epoch <= 2000 } { incr epoch 100 } {
+    # puts "value of epoch: $epoch"
 
     # load a network that has been already trained
     # resetNet
@@ -46,9 +51,9 @@ for { set epoch 0 }  { $epoch <= 2000 } { incr epoch 100 } {
     train 1
 
     # test
-}
+# }
 
 close $log_outputs_filename
 close $log_hidden_filename
 
-exit
+# exit

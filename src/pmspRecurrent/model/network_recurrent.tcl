@@ -3,7 +3,7 @@
 # 2020-11-07
 
 proc pmspRecurrentNetwork { label } {
-    addNet "pmspRecurrent${label}" -i 2 -t 20 CONTINUOUS
+    addNet "pmspRecurrent${label}" -i 2 -t 10 CONTINUOUS
 
     # input layer
     addGroup ortho_onset 30 INPUT

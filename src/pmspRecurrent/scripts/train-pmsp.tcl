@@ -7,9 +7,9 @@ source ../pmspRecurrent.tcl
 set num_epochs 2000
 
 # these are relative to ./scripts
-set weights_path "../../../var/saved-weights-recurrent-dt-20"
+set weights_path "../../../var/saved-weights-recurrent-dt-20-80-hidden"
 set examples_path "../../../usr/examples"
-set results_path "../../../var/results/2020-12-11"
+set results_path "../../../var/results/2021-01-18-4"
 
 proc save_weights_hook {} {
     global weights_path
