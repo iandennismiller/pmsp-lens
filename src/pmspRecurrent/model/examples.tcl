@@ -6,12 +6,6 @@ proc introduce_base_vocabulary { examples_path } {
     loadExamples "${examples_path}/pmsp-train.ex" -s vocab
     exampleSetMode vocab PERMUTED
     useTrainingSet vocab
-
-    # Recurrent Network:
-    # this prevents error from being computed until after the graceTime has passed.
-    setObj vocab.minTime 2.0
-    setObj vocab.maxTime 2.0
-    setObj vocab.graceTime 1.0
 }
 
 proc introduce_anchors { amount examples_path } {
