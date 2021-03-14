@@ -21,3 +21,9 @@ experiment:
 
 activations-fig18:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18.tcl
+
+train-10-ticks-dt-1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-10-ticks-dt-1.tcl
+
+pmsp-study-3-replication:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
