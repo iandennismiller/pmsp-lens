@@ -26,9 +26,9 @@
 seed 1
 
 # unique name of this script, for naming saved weights
-set script_name "pmsp-study-3-replication"
+set script_name "pmsp-study-3-replication-5"
 
-set stage 3
+set stage 1
 
 # all relative to ./scripts
 set root_path "../../.."
@@ -119,7 +119,7 @@ proc save_weights_hook {} {
 setObj postEpochProc { save_weights_hook }
 
 # perform actual training
-loadExamples "${examples_path}/pmsp-train.ex" -s vocab
+loadExamples "${examples_path}/pmsp-train-the-normalized.ex" -s vocab
 exampleSetMode vocab PERMUTED
 useTrainingSet vocab
 
@@ -161,19 +161,29 @@ if { $stage == 2 } {
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.98
     train 50
+
+    # reset accumulated evidence
+    setObj learningRate 0
+    train -a steepest -setOnly
+    train 1
 }
 
-setTime -t 100
+# setTime -t 100
 
 # Stage 3: dt = 100
-# if { $stage == 3 } {
+if { $stage == 3 } {
     # load weights
-    # loadWeights "${weights_path}/${script_name}/1849.wt.gz"
+    loadWeights "${weights_path}/${script_name}/1850.wt.gz"
 
-    # train -a "deltaBarDelta" -setOnly
-    # setObj momentum 0.98
+    train -a "deltaBarDelta" -setOnly
+    setObj momentum 0.98
     train 50
-# }
+
+    # reset accumulated evidence
+    setObj learningRate 0
+    train -a steepest -setOnly
+    train 1
+}
 
 # saveAccuracyResults "${results_path}/recurrent-$num_epochs.tsv"
 
