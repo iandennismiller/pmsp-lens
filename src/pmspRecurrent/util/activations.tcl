@@ -15,7 +15,7 @@ proc log_hidden_activations_hook {} {
     set groups_to_log {hidden}
     set properties_to_log {output}
 
-    # if { [getObj totalUpdates] % 250 == 0} {
+    if { [getObj totalUpdates] % 50 == 0} {
         foreach t $properties_to_log {
             puts -nonewline $log_hidden_filename "[getObj totalUpdates]|"
 
@@ -31,7 +31,7 @@ proc log_hidden_activations_hook {} {
 
             puts $log_hidden_filename ""
         }
-    # }
+    }
 }
 
 proc log_output_activations_hook {} {
@@ -44,7 +44,7 @@ proc log_output_activations_hook {} {
     set properties_to_log {output target}
     # set properties_to_log {output}
 
-    # if { [getObj totalUpdates] % 250 == 0} {
+    if { [getObj totalUpdates] % 50 == 0} {
         foreach t $properties_to_log {
             puts -nonewline $log_outputs_filename "[getObj totalUpdates]|"
 
@@ -60,6 +60,6 @@ proc log_output_activations_hook {} {
 
             puts $log_outputs_filename ""
         }
-    # }
+    }
 
 }

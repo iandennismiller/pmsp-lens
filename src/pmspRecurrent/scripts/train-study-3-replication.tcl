@@ -26,7 +26,7 @@
 seed 1
 
 # unique name of this script, for naming saved weights
-set script_name "pmsp-study-3-replication-5"
+set script_name "pmsp-study-3-replication-7"
 
 set stage 1
 
@@ -34,21 +34,29 @@ set stage 1
 set root_path "../../.."
 set weights_path "/home/idm/scratch/pmsp-weights"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/2021-03-08"
+set results_path "${root_path}/var/results/2021-03-14-omni-100"
+
+global log_outputs_filename
+set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
+
+global log_hidden_filename
+set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
 
 ###
 # Network Architecture
 
 # we start with dt = 5, then dt = 20, and finally dt = 100
-if { $stage == 1 } {
-    set dt 5
-}
-if { $stage == 2 } {
-    set dt 20
-}
-if { $stage == 3 } {
-    set dt 100
-}
+# if { $stage == 1 } {
+#     set dt 5
+# }
+# if { $stage == 2 } {
+#     set dt 20
+# }
+# if { $stage == 3 } {
+#     set dt 100
+# }
+
+set dt 100
 
 addNet "pmspRecurrent" -i 2 -t $dt CONTINUOUS
 
@@ -118,6 +126,9 @@ proc save_weights_hook {} {
 }
 setObj postEpochProc { save_weights_hook }
 
+source ../util/activations.tcl
+setObj postExampleProc { log_activations_hook }
+
 # perform actual training
 loadExamples "${examples_path}/pmsp-train-the-normalized.ex" -s vocab
 exampleSetMode vocab PERMUTED
@@ -128,6 +139,11 @@ useTrainingSet vocab
 setObj vocab.minTime 2.0
 setObj vocab.maxTime 2.0
 setObj vocab.graceTime 1.0
+
+# Need to view units to be able to access the history arrays.
+# ensure it updates per example, not per batch
+# (updates 3: update after each example)
+viewUnits -updates 3
 
 # Stage 1: dt = 5
 if { $stage == 1 } {
@@ -143,7 +159,7 @@ if { $stage == 1 } {
     train 190
 
     setObj momentum 0.98
-    train 1600
+    train 1800
 
     # reset accumulated evidence
     setObj learningRate 0
@@ -154,37 +170,37 @@ if { $stage == 1 } {
 # setTime -t 20
 
 # Stage 2: dt = 20
-if { $stage == 2 } {
-    # load weights
-    loadWeights "${weights_path}/${script_name}/1800.wt.gz"
+# if { $stage == 2 } {
+#     # load weights
+#     loadWeights "${weights_path}/${script_name}/1800.wt.gz"
 
-    train -a "deltaBarDelta" -setOnly
-    setObj momentum 0.98
-    train 50
+#     train -a "deltaBarDelta" -setOnly
+#     setObj momentum 0.98
+#     train 50
 
-    # reset accumulated evidence
-    setObj learningRate 0
-    train -a steepest -setOnly
-    train 1
-}
+#     # reset accumulated evidence
+#     setObj learningRate 0
+#     train -a steepest -setOnly
+#     train 1
+# }
 
 # setTime -t 100
 
 # Stage 3: dt = 100
-if { $stage == 3 } {
-    # load weights
-    loadWeights "${weights_path}/${script_name}/1850.wt.gz"
+# if { $stage == 3 } {
+#     # load weights
+#     loadWeights "${weights_path}/${script_name}/1850.wt.gz"
 
-    train -a "deltaBarDelta" -setOnly
-    setObj momentum 0.98
-    train 50
+#     train -a "deltaBarDelta" -setOnly
+#     setObj momentum 0.98
+#     train 50
 
-    # reset accumulated evidence
-    setObj learningRate 0
-    train -a steepest -setOnly
-    train 1
-}
+#     # reset accumulated evidence
+#     setObj learningRate 0
+#     train -a steepest -setOnly
+#     train 1
+# }
 
-# saveAccuracyResults "${results_path}/recurrent-$num_epochs.tsv"
+# saveAccuracyResults "${results_path}/accuracy-stage-$stage.tsv"
 
-exit
+# exit

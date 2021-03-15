@@ -31,9 +31,9 @@ proc pmspRecurrentSimulation { label dt } {
 
     # "error is injected only for the second unit of time; units receive no direct pressure to be correct for the first unit of time (although back-propagated internal error causes weight changes that encourage units to move towards the appropriate states as early as possible"
     # this prevents error from being computed until after the graceTime has passed.
-    setObj vocab.minTime 2.0
-    setObj vocab.maxTime 2.0
-    setObj vocab.graceTime 1.0
+    # setObj vocab.minTime 2.0
+    # setObj vocab.maxTime 2.0
+    # setObj vocab.graceTime 1.0
 
     # setObj bias.randMean -1.85
     # setLinkValues randMean -1.85 -t bias
