@@ -27,3 +27,9 @@ train-10-ticks-dt-1:
 
 pmsp-study-3-replication:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
+
+activations-fig18-dt-100:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100.tcl
+
+accuracy-dt-100:
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl

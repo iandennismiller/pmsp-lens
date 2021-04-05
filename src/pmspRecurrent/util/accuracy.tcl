@@ -47,7 +47,10 @@ proc checkExampleAccuracy {} {
     set exampleName [getObj currentExample.name]
     set isCorrect [ allVowelsCorrect ]
     
+    # puts "$exampleName"
+
     regexp {^(\d+)_(\w+?)_(\w+?)_(.+)$} $exampleName match id orthography phonology category
+    # puts "$exampleName $id"
 
     # get error from phono_vowel output layer
     set runningErrorAmount [getObj group(6).error]
