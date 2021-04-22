@@ -8,10 +8,13 @@ set dt 100
 set start_epoch 0
 set end_epoch 1900
 
-# these are relative to ./scripts
-set weights_path "/home/idm/scratch/pmsp-weights/pmsp-study-3-replication-7"
-set examples_path "../../../usr/examples"
-set results_path "../../../var/results/2021-04-05-dt-100"
+set script_name "pmsp-study-3-replication-7-seed-2"
+
+# all relative to ./scripts
+set root_path "../../.."
+set weights_path "${root_path}/var/weights/${script_name}"
+set examples_path "${root_path}/usr/examples"
+set results_path "${root_path}/var/results/${script_name}"
 
 set loggingInterval 1
 
@@ -83,7 +86,7 @@ viewUnits -updates 3
 # For now, manually set the epoch
 # set epoch 2000
 
-for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 100 } {
+for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 25 } {
     puts "value of epoch: $epoch"
 
     # load a network that has been already trained

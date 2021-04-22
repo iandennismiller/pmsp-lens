@@ -23,10 +23,12 @@
 #   - exit
 
 # reproducible
-seed 2
+seed 1
 
 # unique name of this script, for naming saved weights
-set script_name "pmsp-study-3-replication-7-seed-2"
+set script_name "jepg-2017-recurrent-dt-100-seed-1"
+# mkdir var/results/jepg-2017-recurrent-dt-100-seed-1
+# mkdir var/weights/jepg-2017-recurrent-dt-100-seed-1
 
 set stage 1
 
@@ -45,17 +47,6 @@ set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
 
 ###
 # Network Architecture
-
-# we start with dt = 5, then dt = 20, and finally dt = 100
-# if { $stage == 1 } {
-#     set dt 5
-# }
-# if { $stage == 2 } {
-#     set dt 20
-# }
-# if { $stage == 3 } {
-#     set dt 100
-# }
 
 set dt 100
 
@@ -130,78 +121,39 @@ setObj postEpochProc { save_weights_hook }
 source ../util/activations.tcl
 setObj postExampleProc { log_activations_hook }
 
-# perform actual training
-loadExamples "${examples_path}/pmsp-train-the-normalized.ex" -s vocab
-exampleSetMode vocab PERMUTED
-useTrainingSet vocab
+###
+# Examples
+
+# load frequency-dilution vocab and anchors
+set amount 1
+
+# replace 0.69314718 with 0.000085750
+# replace 2.484906650 with (6 - (2998*0.000085750)) / 30 = 0.1914307167
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${amount}.ex"
+loadExamples $example_file -s "vocab_anchors"
+exampleSetMode "vocab_anchors" PERMUTED
+useTrainingSet "vocab_anchors"
 
 # "error is injected only for the second unit of time; units receive no direct pressure to be correct for the first unit of time (although back-propagated internal error causes weight changes that encourage units to move towards the appropriate states as early as possible"
 # this prevents error from being computed until after the graceTime has passed.
-setObj vocab.minTime 2.0
-setObj vocab.maxTime 2.0
-setObj vocab.graceTime 1.0
+setObj vocab_anchors.minTime 2.0
+setObj vocab_anchors.maxTime 2.0
+setObj vocab_anchors.graceTime 1.0
 
 # Need to view units to be able to access the history arrays.
 # ensure it updates per example, not per batch
 # (updates 3: update after each example)
 viewUnits -updates 3
 
-# Stage 1: dt = 5
-if { $stage == 1 } {
-    # coax network to settle
-    train -a steepest -setOnly
-    setObj momentum 0.0
-    resetNet
-    train 10
+loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
 
-    # perform remaining training with delta-bar-delta
-    train -a "deltaBarDelta" -setOnly
-    setObj momentum 0.9
-    train 190
+train -a "deltaBarDelta" -setOnly
+setObj momentum 0.98
+train 250
 
-    setObj momentum 0.98
-    train 1800
+# reset accumulated evidence
+setObj learningRate 0
+train -a steepest -setOnly
+train 1
 
-    # reset accumulated evidence
-    setObj learningRate 0
-    train -a steepest -setOnly
-    train 1
-}
-
-# setTime -t 20
-
-# Stage 2: dt = 20
-# if { $stage == 2 } {
-#     # load weights
-#     loadWeights "${weights_path}/${script_name}/1800.wt.gz"
-
-#     train -a "deltaBarDelta" -setOnly
-#     setObj momentum 0.98
-#     train 50
-
-#     # reset accumulated evidence
-#     setObj learningRate 0
-#     train -a steepest -setOnly
-#     train 1
-# }
-
-# setTime -t 100
-
-# Stage 3: dt = 100
-# if { $stage == 3 } {
-#     # load weights
-#     loadWeights "${weights_path}/${script_name}/1850.wt.gz"
-
-#     train -a "deltaBarDelta" -setOnly
-#     setObj momentum 0.98
-#     train 50
-
-#     # reset accumulated evidence
-#     setObj learningRate 0
-#     train -a steepest -setOnly
-#     train 1
-# }
-
-# saveAccuracyResults "${results_path}/accuracy-stage-$stage.tsv"
-
-# exit
+saveAccuracyResults "${results_path}/accuracy-seed-$seed.tsv"
