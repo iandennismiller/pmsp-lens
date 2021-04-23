@@ -2,6 +2,8 @@
 # Ian Dennis Miller
 # 2021-03-08
 
+source ../util/accuracy.tcl
+
 ####
 # Timeline
 # - epoch 0
@@ -22,15 +24,16 @@
 # - epoch 1900
 #   - exit
 
+set random_seed 1
+set dilution_amount 2
+
 # reproducible
-seed 1
+seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "jepg-2017-recurrent-dt-100-seed-1"
-# mkdir var/results/jepg-2017-recurrent-dt-100-seed-1
-# mkdir var/weights/jepg-2017-recurrent-dt-100-seed-1
-
-set stage 1
+set script_name "jepg-2017-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+# mkdir var/results/$script_name
+# mkdir var/weights/$script_name
 
 # all relative to ./scripts
 set root_path "../../.."
@@ -125,11 +128,12 @@ setObj postExampleProc { log_activations_hook }
 # Examples
 
 # load frequency-dilution vocab and anchors
-set amount 1
 
 # replace 0.69314718 with 0.000085750
-# replace 2.484906650 with (6 - (2998*0.000085750)) / 30 = 0.1914307167
-set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${amount}.ex"
+# n=1 replace 2.484906650 with (6 - (2998*0.000085750)) / 30 = 0.1914307167
+# n=2 replace 1.945910149 with (6 - (2998*0.000085750)) / 60 = 0.09571535833
+# n=2 replace 1.673976434 with (6 - (2998*0.000085750)) / 90 = 0.06381023889
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
 loadExamples $example_file -s "vocab_anchors"
 exampleSetMode "vocab_anchors" PERMUTED
 useTrainingSet "vocab_anchors"
@@ -156,4 +160,4 @@ setObj learningRate 0
 train -a steepest -setOnly
 train 1
 
-saveAccuracyResults "${results_path}/accuracy-seed-$seed.tsv"
+saveAccuracyResults "${results_path}/accuracy.tsv"

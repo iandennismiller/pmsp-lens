@@ -34,5 +34,11 @@ activations-fig18-dt-100:
 accuracy-dt-100:
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
 
-dt-100-jepg-2017:
-	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100.tcl
+dt-100-jepg-2017-d1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-1.tcl
+
+dt-100-jepg-2017-d2:
+	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-2.tcl
+
+dt-100-jepg-2017-d3:
+	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-3.tcl
