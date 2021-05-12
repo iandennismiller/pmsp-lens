@@ -2,8 +2,6 @@
 # Ian Dennis Miller
 # 2021-03-08
 
-source ../util/accuracy.tcl
-
 ####
 # Timeline
 # - epoch 0
@@ -121,8 +119,11 @@ proc save_weights_hook {} {
 }
 setObj postEpochProc { save_weights_hook }
 
-source ../util/activations.tcl
-setObj postExampleProc { log_activations_hook }
+# source ../util/activations.tcl
+# setObj postExampleProc { log_activations_hook }
+source ../util/accuracy.tcl
+set loggingInterval 1
+setObj postExampleProc { logAccuracyHook }
 
 ###
 # Examples
@@ -153,7 +154,7 @@ loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
 
 train -a "deltaBarDelta" -setOnly
 setObj momentum 0.98
-train 250
+train 2000
 
 # reset accumulated evidence
 setObj learningRate 0

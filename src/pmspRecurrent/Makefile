@@ -42,3 +42,13 @@ dt-100-jepg-2017-d2:
 
 dt-100-jepg-2017-d3:
 	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-3.tcl
+
+activations-fig18-dt-100-d1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-1.tcl
+
+activations-fig18-dt-100-d2:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-2.tcl
+
+activations-fig18-dt-100-d3:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-3.tcl
+
