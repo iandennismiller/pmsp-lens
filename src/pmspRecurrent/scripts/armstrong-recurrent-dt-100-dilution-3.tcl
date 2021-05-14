@@ -150,11 +150,12 @@ setObj vocab_anchors.graceTime 1.0
 # (updates 3: update after each example)
 viewUnits -updates 3
 
-loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
+# loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
+loadWeights "${weights_path}/jepg-2017-recurrent-dt-100-dilution-3-seed-1/3669.wt.gz"
 
 train -a "deltaBarDelta" -setOnly
 setObj momentum 0.98
-train 2000
+train 182
 
 # reset accumulated evidence
 setObj learningRate 0

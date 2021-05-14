@@ -2,15 +2,14 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-# source ../pmspRecurrent.tcl
-source ../util/activations.tcl
+source ../util/accuracy.tcl
 
 set dt 100
-set start_epoch 1850
+set start_epoch 2000
 set end_epoch 3850
 
 set random_seed 1
-set dilution_amount 2
+set dilution_amount 1
 
 # reproducible
 seed $random_seed
@@ -20,18 +19,14 @@ set script_name "jepg-2017-recurrent-dt-100-dilution-$dilution_amount-seed-$rand
 
 # all relative to ./scripts
 set root_path "../../.."
-# set weights_path "/home/idm/scratch/pmsp-weights"
 set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
 
-global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-anchors-output.txt" w ]
+set loggingInterval 1
 
-global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-anchors-hidden.txt" w ]
-
-seed 1
+global log_accuracy_filename
+set log_accuracy_filename [open "${results_path}/accuracy-anchors.tsv" w ]
 
 ###
 # Network Architecture
@@ -62,6 +57,9 @@ connectGroups {phono_onset phono_vowel phono_coda} {phono_onset phono_vowel phon
 
 useNet "pmspRecurrent"
 
+###
+# Settings
+
 setObj learningRate 0.05
 setObj momentum 0.98
 
@@ -73,15 +71,15 @@ setObj targetRadius 0.1
 
 set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
 loadExamples $example_file -s "vocab"
-exampleSetMode vocab PERMUTED
-useTrainingSet vocab
+exampleSetMode "vocab" PERMUTED
+useTrainingSet "vocab"
 
 setObj vocab.minTime 2.0
 setObj vocab.maxTime 2.0
 setObj vocab.graceTime 1.0
 
 # install hook to log activations
-setObj postExampleProc { log_activations_hook }
+setObj postExampleProc { logAccuracyHook }
 
 # Need to view units to be able to access the history arrays.
 # TODO: ensure it updates per example, not per batch
@@ -108,7 +106,8 @@ for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 1 } {
 
 }
 
-close $log_outputs_filename
-close $log_hidden_filename
+saveAccuracyResults "${results_path}/accuracy-anchors.tsv"
+
+# close $log_accuracy_filename
 
 exit

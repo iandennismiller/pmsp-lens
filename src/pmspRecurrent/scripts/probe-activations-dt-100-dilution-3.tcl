@@ -10,7 +10,7 @@ set start_epoch 1850
 set end_epoch 3850
 
 set random_seed 1
-set dilution_amount 2
+set dilution_amount 3
 
 # reproducible
 seed $random_seed
@@ -26,10 +26,10 @@ set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
 
 global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-anchors-output.txt" w ]
+set log_outputs_filename [open "${results_path}/activations-probes-output.txt" w ]
 
 global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-anchors-hidden.txt" w ]
+set log_hidden_filename [open "${results_path}/activations-probes-hidden.txt" w ]
 
 seed 1
 
@@ -71,8 +71,7 @@ setObj weightDecay 0.00000
 # "output units are trained to targets of 0.1 and 0.9"
 setObj targetRadius 0.1
 
-set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
-loadExamples $example_file -s "vocab"
+loadExamples "${examples_path}/probes-new.ex" -s vocab
 exampleSetMode vocab PERMUTED
 useTrainingSet vocab
 

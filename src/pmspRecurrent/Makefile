@@ -34,21 +34,42 @@ activations-fig18-dt-100:
 accuracy-dt-100:
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
 
-dt-100-jepg-2017-d1:
+train-dt-100-jepg-2017-d1:
 	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-1.tcl
 
-dt-100-jepg-2017-d2:
+train-dt-100-jepg-2017-d2:
 	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-2.tcl
 
-dt-100-jepg-2017-d3:
+train-dt-100-jepg-2017-d3:
 	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-3.tcl
 
-activations-fig18-dt-100-d1:
+# anchors
+
+activations-anchors-fig18-dt-100-d1:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-1.tcl
 
-activations-fig18-dt-100-d2:
+activations-anchors-fig18-dt-100-d2:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-2.tcl
 
-activations-fig18-dt-100-d3:
+activations-anchors-fig18-dt-100-d3:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-3.tcl
 
+accuracy-anchors-fig18-dt-100-d1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-1.tcl
+
+accuracy-anchors-fig18-dt-100-d2:
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-2.tcl
+
+accuracy-anchors-fig18-dt-100-d3:
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-3.tcl
+
+# probes
+
+activations-probes-fig18-dt-100-d1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-1.tcl
+
+activations-probes-fig18-dt-100-d2:
+	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-2.tcl
+
+activations-probes-fig18-dt-100-d3:
+	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-3.tcl
