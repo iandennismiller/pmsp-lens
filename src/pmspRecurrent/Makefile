@@ -34,42 +34,67 @@ activations-fig18-dt-100:
 accuracy-dt-100:
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
 
-train-dt-100-jepg-2017-d1:
-	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-1.tcl
+# training
 
-train-dt-100-jepg-2017-d2:
-	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-2.tcl
+train-dt-100-dilution-1:
+	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-1.tcl
 
-train-dt-100-jepg-2017-d3:
-	time /opt/Lens-linux/Bin/alens.sh scripts/armstrong-recurrent-dt-100-dilution-3.tcl
+train-dt-100-dilution-2:
+	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-2.tcl
 
-# anchors
+train-dt-100-dilution-3:
+	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-3.tcl
 
-activations-anchors-fig18-dt-100-d1:
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-1.tcl
+# accuracy
 
-activations-anchors-fig18-dt-100-d2:
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-2.tcl
-
-activations-anchors-fig18-dt-100-d3:
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-3.tcl
-
-accuracy-anchors-fig18-dt-100-d1:
+accuracy-anchors-dilution-1:
+	-rm var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/accuracy-anchors.tsv
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-1.tcl
 
-accuracy-anchors-fig18-dt-100-d2:
+accuracy-anchors-dilution-2:
+	-rm var/results/jepg-2017-recurrent-dt-100-dilution-2-seed-1/accuracy-anchors.tsv
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-2.tcl
 
-accuracy-anchors-fig18-dt-100-d3:
+accuracy-anchors-dilution-3:
+	-rm var/results/jepg-2017-recurrent-dt-100-dilution-3-seed-1/accuracy-anchors.tsv
 	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-3.tcl
 
-# probes
+# activations: anchors
 
-activations-probes-fig18-dt-100-d1:
-	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-1.tcl
+activations-anchors-dilution-1:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/activations-anchors-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-1.tcl
 
-activations-probes-fig18-dt-100-d2:
-	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-2.tcl
+activations-anchors-dilution-2:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-2-seed-1/activations-anchors-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-2-seed-1/activations-anchors-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-2.tcl
 
-activations-probes-fig18-dt-100-d3:
-	time /opt/Lens-linux/Bin/alens.sh scripts/probes-activations-dt-100-dilution-3.tcl
+activations-anchors-dilution-3:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-3-seed-1/activations-anchors-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-3-seed-1/activations-anchors-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-3.tcl
+
+# activations: probes
+
+activations-probes-dilution-1:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/activations-probes-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/activations-probes-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/probe-activations-dt-100-dilution-1.tcl
+
+activations-probes-dilution-2:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-2-seed-1/activations-probes-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-2-seed-1/activations-probes-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/probe-activations-dt-100-dilution-2.tcl
+
+activations-probes-dilution-3:
+	-rm \
+		var/results/jepg-2017-recurrent-dt-100-dilution-3-seed-1/activations-probes-hidden.txt \
+		var/results/jepg-2017-recurrent-dt-100-dilution-3-seed-1/activations-probes-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/probe-activations-dt-100-dilution-3.tcl
