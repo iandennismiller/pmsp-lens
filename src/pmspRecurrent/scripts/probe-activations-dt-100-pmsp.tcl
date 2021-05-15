@@ -2,13 +2,16 @@
 # Ian Dennis Miller
 # 2020-11-07
 
-source ../util/accuracy.tcl
+# source ../pmspRecurrent.tcl
+source ../util/activations.tcl
 
 set dt 100
 set start_epoch 0
 set end_epoch 2000
 
 set random_seed 1
+
+# reproducible
 seed $random_seed
 
 # unique name of this script, for naming saved weights
@@ -16,14 +19,18 @@ set script_name "pmsp-recurrent-dt-100-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."
+# set weights_path "/home/idm/scratch/pmsp-weights"
 set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
 
-set loggingInterval 1
+global log_outputs_filename
+set log_outputs_filename [open "${results_path}/activations-probes-output.txt" w ]
 
-# global log_accuracy_filename
-# set log_accuracy_filename [open "${results_path}/accuracy.txt" w ]
+global log_hidden_filename
+set log_hidden_filename [open "${results_path}/activations-probes-hidden.txt" w ]
+
+seed 1
 
 ###
 # Network Architecture
@@ -54,9 +61,6 @@ connectGroups {phono_onset phono_vowel phono_coda} {phono_onset phono_vowel phon
 
 useNet "pmspRecurrent"
 
-###
-# Settings
-
 setObj learningRate 0.05
 setObj momentum 0.98
 
@@ -66,7 +70,7 @@ setObj weightDecay 0.00000
 # "output units are trained to targets of 0.1 and 0.9"
 setObj targetRadius 0.1
 
-loadExamples "${examples_path}/pmsp-train-the-normalized.ex" -s vocab
+loadExamples "${examples_path}/probes-new.ex" -s vocab
 exampleSetMode vocab PERMUTED
 useTrainingSet vocab
 
@@ -75,7 +79,7 @@ setObj vocab.maxTime 2.0
 setObj vocab.graceTime 1.0
 
 # install hook to log activations
-setObj postExampleProc { logAccuracyHook }
+setObj postExampleProc { log_activations_hook }
 
 # Need to view units to be able to access the history arrays.
 # TODO: ensure it updates per example, not per batch
@@ -102,8 +106,7 @@ for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 1 } {
 
 }
 
-saveAccuracyResults "${results_path}/accuracy.tsv"
-
-# close $log_accuracy_filename
+close $log_outputs_filename
+close $log_hidden_filename
 
 exit

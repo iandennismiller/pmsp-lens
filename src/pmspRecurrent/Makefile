@@ -31,10 +31,10 @@ pmsp-study-3-replication:
 activations-fig18-dt-100:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100.tcl
 
-accuracy-dt-100:
-	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
-
 # training
+
+train-dt-100-pmsp:
+	time /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
 
 train-dt-100-dilution-1:
 	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-1.tcl
@@ -46,6 +46,10 @@ train-dt-100-dilution-3:
 	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-3.tcl
 
 # accuracy
+
+accuracy-pmsp:
+	-rm var/results/pmsp-recurrent-dt-100-seed-1/accuracy.tsv
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
 
 accuracy-anchors-dilution-1:
 	-rm var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/accuracy-anchors.tsv
@@ -80,6 +84,12 @@ activations-anchors-dilution-3:
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100-dilution-3.tcl
 
 # activations: probes
+
+activations-probes-pmsp:
+	-rm \
+		var/results/pmsp-recurrent-dt-100-seed-1/activations-probes-hidden.txt \
+		var/results/pmsp-recurrent-dt-100-seed-1/activations-probes-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/probe-activations-dt-100-pmsp.tcl
 
 activations-probes-dilution-1:
 	-rm \

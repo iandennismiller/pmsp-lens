@@ -23,39 +23,27 @@
 #   - exit
 
 # reproducible
-seed 2
+set random_seed 1
+seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "pmsp-study-3-replication-7-seed-2"
-
-set stage 1
+set script_name "pmsp-recurrent-dt-100-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."
 # set weights_path "/home/idm/scratch/pmsp-weights"
-set weights_path "${root_path}/var/weights"
+set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
 
-global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
+# global log_outputs_filename
+# set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
 
-global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
+# global log_hidden_filename
+# set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
 
 ###
 # Network Architecture
-
-# we start with dt = 5, then dt = 20, and finally dt = 100
-# if { $stage == 1 } {
-#     set dt 5
-# }
-# if { $stage == 2 } {
-#     set dt 20
-# }
-# if { $stage == 3 } {
-#     set dt 100
-# }
 
 set dt 100
 
@@ -123,12 +111,12 @@ proc save_weights_hook {} {
     global weights_path
     global script_name
     set epoch [ getObj totalUpdates ]
-    saveWeights "${weights_path}/${script_name}/${epoch}.wt.gz"
+    saveWeights "${weights_path}/${epoch}.wt.gz"
 }
 setObj postEpochProc { save_weights_hook }
 
-source ../util/activations.tcl
-setObj postExampleProc { log_activations_hook }
+# source ../util/activations.tcl
+# setObj postExampleProc { log_activations_hook }
 
 # perform actual training
 loadExamples "${examples_path}/pmsp-train-the-normalized.ex" -s vocab
@@ -146,62 +134,23 @@ setObj vocab.graceTime 1.0
 # (updates 3: update after each example)
 viewUnits -updates 3
 
-# Stage 1: dt = 5
-if { $stage == 1 } {
-    # coax network to settle
-    train -a steepest -setOnly
-    setObj momentum 0.0
-    resetNet
-    train 10
+# coax network to settle
+train -a steepest -setOnly
+setObj momentum 0.0
+resetNet
+train 10
 
-    # perform remaining training with delta-bar-delta
-    train -a "deltaBarDelta" -setOnly
-    setObj momentum 0.9
-    train 190
+# perform remaining training with delta-bar-delta
+train -a "deltaBarDelta" -setOnly
+setObj momentum 0.9
+train 190
 
-    setObj momentum 0.98
-    train 1800
+setObj momentum 0.98
+train 1800
 
-    # reset accumulated evidence
-    setObj learningRate 0
-    train -a steepest -setOnly
-    train 1
-}
-
-# setTime -t 20
-
-# Stage 2: dt = 20
-# if { $stage == 2 } {
-#     # load weights
-#     loadWeights "${weights_path}/${script_name}/1800.wt.gz"
-
-#     train -a "deltaBarDelta" -setOnly
-#     setObj momentum 0.98
-#     train 50
-
-#     # reset accumulated evidence
-#     setObj learningRate 0
-#     train -a steepest -setOnly
-#     train 1
-# }
-
-# setTime -t 100
-
-# Stage 3: dt = 100
-# if { $stage == 3 } {
-#     # load weights
-#     loadWeights "${weights_path}/${script_name}/1850.wt.gz"
-
-#     train -a "deltaBarDelta" -setOnly
-#     setObj momentum 0.98
-#     train 50
-
-#     # reset accumulated evidence
-#     setObj learningRate 0
-#     train -a steepest -setOnly
-#     train 1
-# }
-
-# saveAccuracyResults "${results_path}/accuracy-stage-$stage.tsv"
+# reset accumulated evidence
+setObj learningRate 0
+train -a steepest -setOnly
+train 1
 
 # exit
