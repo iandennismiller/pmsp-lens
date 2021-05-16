@@ -31,7 +31,7 @@ puts "Dilution amount: $dilution_amount"
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "pmsp-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."
