@@ -37,13 +37,22 @@ train-dt-100-pmsp:
 	time /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
 
 train-dt-100-dilution-1:
-	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-1.tcl
+	mkdir -p \
+		../../var/weights/pmsp-recurrent-dt-100-dilution-1-seed-1 \
+		../../var/results/pmsp-recurrent-dt-100-dilution-1-seed-1
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=1 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-2:
-	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-2.tcl
+	mkdir -p \
+		../../var/weights/pmsp-recurrent-dt-100-dilution-2-seed-1 \
+		../../var/results/pmsp-recurrent-dt-100-dilution-2-seed-1
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-3:
-	time /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-3.tcl
+	mkdir -p \
+		../../var/weights/pmsp-recurrent-dt-100-dilution-3-seed-1 \
+		../../var/results/pmsp-recurrent-dt-100-dilution-3-seed-1
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/pmsp-recurrent-dt-100-dilution-n.tcl
 
 # accuracy
 

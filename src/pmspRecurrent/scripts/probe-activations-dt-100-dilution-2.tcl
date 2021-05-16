@@ -6,8 +6,8 @@
 source ../util/activations.tcl
 
 set dt 100
-set start_epoch 1850
-set end_epoch 3850
+set start_epoch 2000
+set end_epoch 4000
 
 set random_seed 1
 set dilution_amount 2
@@ -16,7 +16,7 @@ set dilution_amount 2
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "jepg-2017-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "pmsp-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."

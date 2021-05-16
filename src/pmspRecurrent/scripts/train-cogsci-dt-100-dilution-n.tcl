@@ -22,28 +22,23 @@
 # - epoch 1900
 #   - exit
 
-set random_seed 1
-set dilution_amount 3
+set random_seed $::env(PMSP_RANDOM_SEED)
+puts "Random seed: $random_seed"
+set dilution_amount $::env(PMSP_DILUTION)
+puts "Dilution amount: $dilution_amount"
 
 # reproducible
 seed $random_seed
 
 # unique name of this script, for naming saved weights
 set script_name "pmsp-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
-# mkdir var/results/$script_name
-# mkdir var/weights/$script_name
 
 # all relative to ./scripts
 set root_path "../../.."
 set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
-
-# global log_outputs_filename
-# set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
-
-# global log_hidden_filename
-# set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
 
 ###
 # Network Architecture
@@ -85,9 +80,8 @@ useNet "pmspRecurrent"
 # echo $(cat plaut_dataset_collapsed.csv|cut -d',' -f5 | tr -d $'\r' | sed 's/$/+/') 0 | bc
 # df = pd.read_csv('../pmsp-torch/pmsp/data/plaut_dataset_collapsed.csv')
 # sum([math.log(2+x) for x in df['freq']])
-# Our sum: 8208.649287087
+# Our previous sum: 8208.649287087
 
-# setObj learningRate 0.00016
 setObj learningRate 0.05
 
 # p. 28 "the slight tendency for weights to decay towards zero was removed, to prevent the very small weight changes induced by low-frequency words - due to their very small scaling factors - from being overcome by the tendency of weights to shrink towards zero."
@@ -95,11 +89,6 @@ setObj weightDecay 0.00000
 
 # "output units are trained to targets of 0.1 and 0.9"
 setObj targetRadius 0.1
-
-# setObj trainGroupCrit 0.5
-
-# what is randRange accomplishing?
-# setObj randRange 0.1
 
 # diagnostic parameter not related to replication
 setObj reportInterval 10
@@ -112,14 +101,12 @@ setObj pseudoExampleFreq 1
 # this routine will save weights to the proper path
 proc save_weights_hook {} {
     global weights_path
-    global script_name
     set epoch [ getObj totalUpdates ]
     saveWeights "${weights_path}/${epoch}.wt.gz"
 }
 setObj postEpochProc { save_weights_hook }
 
-# source ../util/activations.tcl
-# setObj postExampleProc { log_activations_hook }
+# Log accuracy throughout training
 source ../util/accuracy.tcl
 set loggingInterval 1
 setObj postExampleProc { logAccuracyHook }
@@ -133,7 +120,6 @@ setObj postExampleProc { logAccuracyHook }
 # n=1 replace 2.484906650 with (6 - (2998*0.000085750)) / 30 = 0.1914307167
 # n=2 replace 1.945910149 with (6 - (2998*0.000085750)) / 60 = 0.09571535833
 # n=2 replace 1.673976434 with (6 - (2998*0.000085750)) / 90 = 0.06381023889
-set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
 loadExamples $example_file -s "vocab_anchors"
 exampleSetMode "vocab_anchors" PERMUTED
 useTrainingSet "vocab_anchors"
@@ -149,8 +135,7 @@ setObj vocab_anchors.graceTime 1.0
 # (updates 3: update after each example)
 viewUnits -updates 3
 
-# loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
-# loadWeights "${weights_path}/jepg-2017-recurrent-dt-100-dilution-3-seed-1/2000.wt.gz"
+# resume training with the final epoch of a fully-trained PMSP network
 loadWeights "${root_path}/var/weights/pmsp-recurrent-dt-100-seed-1/2000.wt.gz"
 
 train -a "deltaBarDelta" -setOnly

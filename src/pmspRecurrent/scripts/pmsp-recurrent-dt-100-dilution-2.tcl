@@ -29,22 +29,22 @@ set dilution_amount 2
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "jepg-2017-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "pmsp-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
 # mkdir var/results/$script_name
 # mkdir var/weights/$script_name
 
 # all relative to ./scripts
 set root_path "../../.."
 # set weights_path "/home/idm/scratch/pmsp-weights"
-set weights_path "${root_path}/var/weights"
+set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
 set results_path "${root_path}/var/results/${script_name}"
 
-global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
+# global log_outputs_filename
+# set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
 
-global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
+# global log_hidden_filename
+# set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
 
 ###
 # Network Architecture
@@ -115,7 +115,7 @@ proc save_weights_hook {} {
     global weights_path
     global script_name
     set epoch [ getObj totalUpdates ]
-    saveWeights "${weights_path}/${script_name}/${epoch}.wt.gz"
+    saveWeights "${weights_path}/${epoch}.wt.gz"
 }
 setObj postEpochProc { save_weights_hook }
 
@@ -150,7 +150,7 @@ setObj vocab_anchors.graceTime 1.0
 # (updates 3: update after each example)
 viewUnits -updates 3
 
-loadWeights "${weights_path}/pmsp-study-3-replication-7-seed-1/1850.wt.gz"
+loadWeights "${root_path}/var/weights/pmsp-recurrent-dt-100-seed-1/2000.wt.gz"
 
 train -a "deltaBarDelta" -setOnly
 setObj momentum 0.98
@@ -161,4 +161,4 @@ setObj learningRate 0
 train -a steepest -setOnly
 train 1
 
-saveAccuracyResults "${results_path}/accuracy.tsv"
+saveAccuracyResults "${results_path}/accuracy-training.tsv"
