@@ -65,6 +65,12 @@ accuracy-anchors-dilution-3:
 
 # activations: anchors
 
+activations-anchors-pmsp:
+	-rm \
+		var/results/pmsp-recurrent-dt-100-seed-1/activations-anchors-hidden.txt \
+		var/results/pmsp-recurrent-dt-100-seed-1/activations-anchors-output.txt
+	time /opt/Lens-linux/Bin/alens.sh scripts/anchors-activations-dt-100-pmsp.tcl
+
 activations-anchors-dilution-1:
 	-rm \
 		var/results/jepg-2017-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt \
