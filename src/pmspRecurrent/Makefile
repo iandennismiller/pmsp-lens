@@ -4,6 +4,18 @@
 all:
 	@echo OK
 
+# extract unit activations and produce CSV
+activations-to-csv:
+	./transform.py activations \
+		--hidden_txt ../../var/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt \
+		--output_txt ../../var/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-output.txt
+
+orthography-activations-csv:
+	./transform.py orthography_activations \
+		--word_file ~/Work/pmsp-torch/src/pmsp/data/plaut_dataset_collapsed.csv \
+		--freq_file ~/Work/pmsp-torch/src/pmsp/data/word-frequencies.csv \
+		--out_csv ../../var/orthography-output.csv
+
 # training
 
 train-dt-100-pmsp:

@@ -5,9 +5,10 @@ all:
 	@echo OK
 
 requirements:
-	mkdir ~/.lens-storage
-	cd ~/.lens-storage && \
+	mkdir -p ~/.lens-storage
+	-cd ~/.lens-storage && \
 		git clone https://github.com/iandennismiller/pmsp-lens.git
+	pip install 'git+https://projects.sisrlab.com/cap-lab/pmsp-torch#subdirectory=src'
 
 lens:
 	docker run -d --rm \
