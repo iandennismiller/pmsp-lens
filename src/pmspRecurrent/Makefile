@@ -5,16 +5,81 @@ all:
 	@echo OK
 
 # extract unit activations and produce CSV
-activations-to-csv:
-	./transform.py activations \
-		--hidden_txt ../../var/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt \
-		--output_txt ../../var/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-output.txt
+activations-to-csv: hidden-activations-to-csv output-activations-to-csv
+	cat ../../var/results/activations/cogsci-activations-hidden-dilution-1-seed-1.csv \
+		../../var/results/activations/cogsci-activations-hidden-dilution-2-seed-1.csv \
+		../../var/results/activations/cogsci-activations-hidden-dilution-3-seed-1.csv \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-1-seed-1.csv \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-2-seed-1.csv \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-3-seed-1.csv \
+		> ../../var/results/activations/cogsci-activations-hidden-seed-1.csv
+
+	cat ../../var/results/cogsci-activations-output-dilution-1-seed-1.csv \
+		../../var/results/cogsci-activations-output-dilution-2-seed-1.csv \
+		../../var/results/cogsci-activations-output-dilution-3-seed-1.csv > \
+		../../var/results/cogsci-activations-output-seed-1.csv
+
+hidden-activations-to-csv:
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 1 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt > \
+		../../var/results/activations/cogsci-activations-hidden-dilution-1-seed-1.csv
+
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 1 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-probes-hidden.txt > \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-1-seed-1.csv
+
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 2 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-2-seed-1/activations-anchors-hidden.txt > \
+		../../var/results/activations/cogsci-activations-hidden-dilution-2-seed-1.csv
+
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 2 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-2-seed-1/activations-probes-hidden.txt > \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-2-seed-1.csv
+
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 3 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-3-seed-1/activations-anchors-hidden.txt > \
+		../../var/results/activations/cogsci-activations-hidden-dilution-3-seed-1.csv
+
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 3 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-3-seed-1/activations-probes-hidden.txt > \
+		../../var/results/activations/cogsci-activations-probes-hidden-dilution-3-seed-1.csv
+
+output-activations-to-csv:
+	./transform.py output_activations \
+		--seed 1 \
+		--dilution_level 1 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-output.txt > \
+		../../var/results/cogsci-activations-output-dilution-1-seed-1.csv
+
+	./transform.py output_activations \
+		--seed 1 \
+		--dilution_level 2 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-2-seed-1/activations-anchors-output.txt > \
+		../../var/results/cogsci-activations-output-dilution-2-seed-1.csv
+
+	./transform.py output_activations \
+		--seed 1 \
+		--dilution_level 3 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-3-seed-1/activations-anchors-output.txt > \
+		../../var/results/cogsci-activations-output-dilution-3-seed-1.csv
 
 orthography-activations-csv:
-	./transform.py orthography_activations \
+	./transform.py orthography_phonology \
 		--word_file ~/Work/pmsp-torch/src/pmsp/data/plaut_dataset_collapsed.csv \
 		--freq_file ~/Work/pmsp-torch/src/pmsp/data/word-frequencies.csv \
-		--out_csv ../../var/orthography-output.csv
+		--out_csv ../../var/results/words-orthography-phonology.csv
 
 # training
 
@@ -89,8 +154,8 @@ activations-anchors-dilution-3:
 
 activations-probes-pmsp:
 	rm -f \
-		../../var/results/pmsp-recurrent-dt-100-seed-1/activations-probes-hidden.txt \
-		../../var/results/pmsp-recurrent-dt-100-seed-1/activations-probes-output.txt
+		../../var/results/cogsci-recurrent-dt-100-seed-1/activations-probes-hidden.txt \
+		../../var/results/cogsci-recurrent-dt-100-seed-1/activations-probes-output.txt
 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-probes-dt-100-pmsp.tcl
 
 activations-probes-dilution-1:
