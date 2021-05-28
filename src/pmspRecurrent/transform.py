@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 
 import re
+import sys
 import click
+import pandas as pd
 from pmsp.stimuli import build_stimuli_df
+
+
+def get_include_list():
+    with open("../../usr/data/anchors_and_probes_list.csv", 'r') as f:
+        df = pd.read_csv(f)
+    return list(df['stimuli'])
 
 
 @click.group()
@@ -54,6 +62,8 @@ def hidden_activations(seed, dilution_level, infile):
         - seed, dilution_level, epoch, input_word, anchor_group_id, anchor_or_probe
     """
 
+    include_list = get_include_list()
+
     with open(infile, 'r') as f:
         for line in f.readlines():
             line = line.strip()
@@ -65,7 +75,8 @@ def hidden_activations(seed, dilution_level, infile):
             stimulus_id, orthography, phonology, word_type = m.groups()
             activation_list = activations.split(' ')
 
-            print(f"{seed},{dilution_level},{epoch},{stimulus_id},{orthography},{layer},{','.join(activation_list)}")
+            if orthography in include_list:
+                print(f"{seed},{dilution_level},{epoch},{stimulus_id},{orthography},{layer},{','.join(activation_list)}")
 
 
 @click.command('output_activations', help="Transform output activations from raw TXT to CSV")
@@ -77,6 +88,8 @@ def output_activations(seed, dilution_level, infile):
     - transform hidden.txt and output.txt into activations.csv
         - seed, dilution_level, epoch, input_word, anchor_group_id, anchor_or_probe
     """
+
+    include_list = get_include_list()
 
     with open(infile, 'r') as f:
         for line in f.readlines():
@@ -90,7 +103,8 @@ def output_activations(seed, dilution_level, infile):
                 stimulus_id, orthography, phonology, word_type = m.groups()
                 activation_list = activations.split(' ')
 
-                print(f"{seed},{dilution_level},{epoch},{stimulus_id},{orthography},{layer},{','.join(activation_list)}")
+                if orthography in include_list:
+                    print(f"{seed},{dilution_level},{epoch},{stimulus_id},{orthography},{layer},{','.join(activation_list)}")
 
 
 cli.add_command(orthography_phonology)

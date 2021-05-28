@@ -6,13 +6,29 @@ all:
 
 # extract unit activations and produce CSV
 activations-to-csv: 
-	cd src/pmspRecurrent && ./build-activations.sh
+	./build-activations.sh
+
+test-activations-to-csv:
+	./transform.py hidden_activations \
+		--seed 1 \
+		--dilution_level 1 \
+		--infile ../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1/activations-anchors-hidden.txt
 
 orthography-activations-csv:
 	./transform.py orthography_phonology \
 		--word_file ~/Work/pmsp-torch/src/pmsp/data/plaut_dataset_collapsed.csv \
 		--freq_file ~/Work/pmsp-torch/src/pmsp/data/word-frequencies.csv \
-		--out_csv ../../var/results/words-orthography-phonology.csv
+		--out_csv ../../usr/data/pmsp-orthography-phonology.csv
+
+	./transform.py orthography_phonology \
+		--word_file ~/Work/pmsp-torch/src/pmsp/data/anchors_new3.csv \
+		--freq_file ~/Work/pmsp-torch/src/pmsp/data/word-frequencies.csv \
+		--out_csv ../../usr/data/anchors-orthography-phonology.csv
+
+	./transform.py orthography_phonology \
+		--word_file ~/Work/pmsp-torch/src/pmsp/data/probes_new.csv \
+		--freq_file ~/Work/pmsp-torch/src/pmsp/data/word-frequencies.csv \
+		--out_csv ../../usr/data/probes-orthography-phonology.csv
 
 # training
 

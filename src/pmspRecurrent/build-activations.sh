@@ -67,6 +67,6 @@ function main() {
     activations_to_csv
 }
 
-# main
+main
 
-activations_to_csv
+# activations_to_csv
