@@ -59,19 +59,19 @@ train-dt-100-dilution-3:
 
 accuracy-pmsp:
 	-rm ../../var/results/pmsp-recurrent-dt-100-seed-1/accuracy.tsv
-	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-dt-100.tcl
+	time /opt/Lens-linux/Bin/alens.sh scripts/accuracy-pmsp-dt-100.tcl
 
 accuracy-anchors-dilution-1:
 	-rm ../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1/accuracy-anchors.tsv
-	time /opt/Lens-linux/Bin/alens.sh scripts/drafts/accuracy-cogsci-dt-100-dilution-1.tcl
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=1 /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-n.tcl
 
 accuracy-anchors-dilution-2:
 	-rm ../../var/results/cogsci-recurrent-dt-100-dilution-2-seed-1/accuracy-anchors.tsv
-	time /opt/Lens-linux/Bin/alens.sh scripts/drafts/accuracy-cogsci-dt-100-dilution-2.tcl
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-n.tcl
 
 accuracy-anchors-dilution-3:
 	-rm ../../var/results/cogsci-recurrent-dt-100-dilution-3-seed-1/accuracy-anchors.tsv
-	time /opt/Lens-linux/Bin/alens.sh scripts/drafts/accuracy-cogsci-dt-100-dilution-3.tcl
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/accuracy-cogsci-dt-100-dilution-n.tcl
 
 # activations: anchors
 
