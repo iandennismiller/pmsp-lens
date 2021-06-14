@@ -4,6 +4,10 @@
 all:
 	@echo OK
 
+search-parameter-the-frequency:
+	rm -f ../../var/results/search-parameter-the-frequency.txt
+	/opt/Lens-linux/Bin/alens.sh scripts/search-parameter-the-frequency.tcl
+
 # extract unit activations and produce CSV
 activations-to-csv: 
 	./build-activations.sh
