@@ -9,7 +9,7 @@ set root_path "../../.."
 ###
 # Network Architecture
 
-set dt 100
+set dt 25
 
 addNet "pmspRecurrent" -i 2 -t $dt CONTINUOUS
 
@@ -60,7 +60,9 @@ setObj testGroupCrit 0.5
 # 01 = s/0.1914307167/0.1/g
 # 001 = s/0.1914307167/0.01/g
 
-set freqs [ list 01 001 0001 00001 000001 ]
+# set freqs [ list 01 001 0001 00001 000001 ]
+# set freqs [ list 000001 00001 0001 001 01 ]
+set freqs [ list 0002 0003 0004 0005 0006 0007 0008 0009 ]
 
 foreach {freq} $freqs {
     puts "frequency: $freq"
@@ -88,13 +90,13 @@ foreach {freq} $freqs {
 
     # just retrain until min test error is 95%
 
-    for { set epoch_idx 2000} {$epoch_idx < 2200} {incr epoch_idx} {
+    for { set epoch_idx 2000} {$epoch_idx < 2050} {incr epoch_idx} {
         train 1
         test
 
         puts $Test(percentCorrect)
 
-        set f [open "$root_path/var/results/search-parameter-the-frequency.txt" "a"]
+        set f [open "$root_path/var/results/search-parameter-the-frequency-dt-50-finer.txt" "a"]
         puts $f "$freq\t$epoch_idx\t$Test(percentCorrect)"
         close $f
 
