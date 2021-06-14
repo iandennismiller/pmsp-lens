@@ -6,7 +6,7 @@ source ../util/accuracy.tcl
 
 set dt 100
 set start_epoch 2000
-set end_epoch 3850
+set end_epoch 6000
 
 set random_seed $::env(PMSP_RANDOM_SEED)
 puts "Random seed: $random_seed"
@@ -17,7 +17,7 @@ puts "Dilution amount: $dilution_amount"
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "jepg-2017-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."

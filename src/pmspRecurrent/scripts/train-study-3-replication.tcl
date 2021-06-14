@@ -22,8 +22,10 @@
 # - epoch 1900
 #   - exit
 
+set random_seed $::env(PMSP_RANDOM_SEED)
+puts "Random seed: $random_seed"
+
 # reproducible
-set random_seed 1
 seed $random_seed
 
 # unique name of this script, for naming saved weights
@@ -31,10 +33,14 @@ set script_name "pmsp-recurrent-dt-100-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."
-# set weights_path "/home/idm/scratch/pmsp-weights"
-set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/${script_name}"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
+
+file mkdir $results_path
+file mkdir $weights_path
+
 
 # global log_outputs_filename
 # set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
@@ -115,6 +121,10 @@ proc save_weights_hook {} {
 }
 setObj postEpochProc { save_weights_hook }
 
+source ../util/accuracy.tcl
+set loggingInterval 1
+setObj postExampleProc { logAccuracyHook }
+
 # source ../util/activations.tcl
 # setObj postExampleProc { log_activations_hook }
 
@@ -154,3 +164,4 @@ train -a steepest -setOnly
 train 1
 
 # exit
+saveAccuracyResults "${results_path}/accuracy-training.tsv"

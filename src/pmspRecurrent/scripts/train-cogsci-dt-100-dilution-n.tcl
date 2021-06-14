@@ -30,15 +30,21 @@ puts "Dilution amount: $dilution_amount"
 # reproducible
 seed $random_seed
 
+set how_many_epochs_to_train 2000
+
 # unique name of this script, for naming saved weights
 set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
 
 # all relative to ./scripts
 set root_path "../../.."
-set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/${script_name}"
 set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
+
+file mkdir $results_path
+file mkdir $weights_path
 
 ###
 # Network Architecture
@@ -136,11 +142,12 @@ setObj vocab_anchors.graceTime 1.0
 viewUnits -updates 3
 
 # resume training with the final epoch of a fully-trained PMSP network
-loadWeights "${root_path}/var/weights/pmsp-recurrent-dt-100-seed-1/2000.wt.gz"
+loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-${random_seed}/weights/2000.wt.gz"
+# loadWeights "${root_path}/var/net/${script_name}/weights/2000.wt.gz"
 
 train -a "deltaBarDelta" -setOnly
 setObj momentum 0.98
-train 2000
+train ${how_many_epochs_to_train}
 
 # reset accumulated evidence
 setObj learningRate 0

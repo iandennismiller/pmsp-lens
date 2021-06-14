@@ -33,27 +33,16 @@ orthography-activations-csv:
 # training
 
 train-dt-100-pmsp:
-	mkdir -p \
-		../../var/weights/pmsp-recurrent-dt-100-seed-1
-	time /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
+	PMSP_RANDOM_SEED=2 /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
 
 train-dt-100-dilution-1:
-	mkdir -p \
-		../../var/weights/cogsci-recurrent-dt-100-dilution-1-seed-1 \
-		../../var/results/cogsci-recurrent-dt-100-dilution-1-seed-1
-	PMSP_RANDOM_SEED=1 PMSP_DILUTION=1 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
+	PMSP_RANDOM_SEED=2 PMSP_DILUTION=1 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-2:
-	mkdir -p \
-		../../var/weights/cogsci-recurrent-dt-100-dilution-2-seed-1 \
-		../../var/results/cogsci-recurrent-dt-100-dilution-2-seed-1
-	PMSP_RANDOM_SEED=1 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
+	PMSP_RANDOM_SEED=2 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-3:
-	mkdir -p \
-		../../var/weights/cogsci-recurrent-dt-100-dilution-3-seed-1 \
-		../../var/results/cogsci-recurrent-dt-100-dilution-3-seed-1
-	PMSP_RANDOM_SEED=1 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
+	PMSP_RANDOM_SEED=2 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 # accuracy (only if not produced during training)
 
