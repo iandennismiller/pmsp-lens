@@ -5,11 +5,12 @@
 
 # all relative to ./scripts
 set root_path "../../.."
+set output_file "$root_path/var/results/search-parameter-the-frequency-dt-100-full-epochs-300.txt"
 
 ###
 # Network Architecture
 
-set dt 25
+set dt 100
 
 addNet "pmspRecurrent" -i 2 -t $dt CONTINUOUS
 
@@ -60,9 +61,9 @@ setObj testGroupCrit 0.5
 # 01 = s/0.1914307167/0.1/g
 # 001 = s/0.1914307167/0.01/g
 
-# set freqs [ list 01 001 0001 00001 000001 ]
-# set freqs [ list 000001 00001 0001 001 01 ]
-set freqs [ list 0002 0003 0004 0005 0006 0007 0008 0009 ]
+# set freqs [ list 01 001 ]
+set freqs [ list 000001 00001 0001 001 01 0002 0003 0004 0005 0006 0007 0008 0009 ]
+# set freqs [ list 0001 0002 0003 0004 0005 0006 0007 0008 0009 001 ]
 
 foreach {freq} $freqs {
     puts "frequency: $freq"
@@ -81,7 +82,7 @@ foreach {freq} $freqs {
     # setObj test.group.crit 0.5
 
     # resume training with the final epoch of a fully-trained PMSP network
-    loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-1/weights/2000.wt.gz"
+    loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-1/weights/1999.wt.gz"
 
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.98
@@ -90,13 +91,13 @@ foreach {freq} $freqs {
 
     # just retrain until min test error is 95%
 
-    for { set epoch_idx 2000} {$epoch_idx < 2050} {incr epoch_idx} {
+    for { set epoch_idx 2000} {$epoch_idx < 2300} {incr epoch_idx} {
         train 1
         test
 
         puts $Test(percentCorrect)
 
-        set f [open "$root_path/var/results/search-parameter-the-frequency-dt-50-finer.txt" "a"]
+        set f [open $output_file "a"]
         puts $f "$freq\t$epoch_idx\t$Test(percentCorrect)"
         close $f
 
