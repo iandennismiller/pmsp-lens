@@ -117,7 +117,7 @@ proc save_weights_hook {} {
     global weights_path
     global script_name
     set epoch [ getObj totalUpdates ]
-    saveWeights "${weights_path}/${epoch}.wt.gz"
+    saveWeights "${weights_path}/${epoch}.wt.gz" -values 3 -text
 }
 setObj postEpochProc { save_weights_hook }
 
