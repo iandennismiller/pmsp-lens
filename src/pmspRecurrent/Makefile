@@ -36,6 +36,9 @@ orthography-activations-csv:
 
 # training
 
+train-pmsp-feedforward:
+	PMSP_RANDOM_SEED=1 /opt/Lens-linux/Bin/alens.sh scripts/train-pmsp-feedforward.tcl
+
 train-dt-100-pmsp:
 	PMSP_RANDOM_SEED=2 /opt/Lens-linux/Bin/alens.sh scripts/train-study-3-replication.tcl
 
@@ -43,7 +46,7 @@ train-dt-100-dilution-1:
 	PMSP_RANDOM_SEED=2 PMSP_DILUTION=1 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-2:
-	PMSP_RANDOM_SEED=2 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=2 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
 train-dt-100-dilution-3:
 	PMSP_RANDOM_SEED=2 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
@@ -72,7 +75,7 @@ activations-anchors-pmsp:
 	rm -f \
 		../../var/results/pmsp-recurrent-dt-100-seed-1/activations-anchors-hidden.txt \
 		../../var/results/pmsp-recurrent-dt-100-seed-1/activations-anchors-output.txt
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-anchors-dt-100-pmsp.tcl
+	PMSP_RANDOM_SEED=2 /opt/Lens-linux/Bin/alens.sh scripts/activations-anchors-dt-100-pmsp.tcl
 
 activations-anchors-dilution-1:
 	rm -f \
@@ -98,7 +101,7 @@ activations-probes-pmsp:
 	rm -f \
 		../../var/results/cogsci-recurrent-dt-100-seed-1/activations-probes-hidden.txt \
 		../../var/results/cogsci-recurrent-dt-100-seed-1/activations-probes-output.txt
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-probes-dt-100-pmsp.tcl
+	PMSP_RANDOM_SEED=2 /opt/Lens-linux/Bin/alens.sh scripts/activations-probes-dt-100-pmsp.tcl
 
 activations-probes-dilution-1:
 	rm -f \
