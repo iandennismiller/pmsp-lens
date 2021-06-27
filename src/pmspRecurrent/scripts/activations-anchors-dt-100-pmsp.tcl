@@ -9,7 +9,8 @@ set dt 100
 set start_epoch 0
 set end_epoch 2000
 
-set random_seed 1
+set random_seed $::env(PMSP_RANDOM_SEED)
+puts "Random seed: $random_seed"
 
 # reproducible
 seed $random_seed
@@ -20,9 +21,12 @@ set script_name "pmsp-recurrent-dt-100-seed-$random_seed"
 # all relative to ./scripts
 set root_path "../../.."
 # set weights_path "/home/idm/scratch/pmsp-weights"
-set weights_path "${root_path}/var/weights/${script_name}"
+# set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/${script_name}"
+# set results_path "${root_path}/var/results/${script_name}"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
 
 global log_outputs_filename
 set log_outputs_filename [open "${results_path}/activations-anchors-output.txt" w ]
