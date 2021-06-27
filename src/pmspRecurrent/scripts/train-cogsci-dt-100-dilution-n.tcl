@@ -33,12 +33,12 @@ seed $random_seed
 set how_many_epochs_to_train 2000
 
 # unique name of this script, for naming saved weights
-set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-calibrated"
 
 # all relative to ./scripts
 set root_path "../../.."
 set examples_path "${root_path}/usr/examples"
-set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n${dilution_amount}.ex"
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-calibrated-n${dilution_amount}.ex"
 
 set weights_path "${root_path}/var/net/${script_name}/weights"
 set results_path "${root_path}/var/net/${script_name}/results"
@@ -126,6 +126,11 @@ setObj postExampleProc { logAccuracyHook }
 # n=1 replace 2.484906650 with (6 - (2998*0.000085750)) / 30 = 0.1914307167
 # n=2 replace 1.945910149 with (6 - (2998*0.000085750)) / 60 = 0.09571535833
 # n=2 replace 1.673976434 with (6 - (2998*0.000085750)) / 90 = 0.06381023889
+
+# n=1 replace 0.1914307167 with 0.001 * 3/3
+# n=2 replace 0.09571535833 with 0.001 * 2/3
+# n=2 replace 0.06381023889 with 0.001 * 1/3
+
 loadExamples $example_file -s "vocab_anchors"
 exampleSetMode "vocab_anchors" PERMUTED
 useTrainingSet "vocab_anchors"
@@ -142,7 +147,7 @@ setObj vocab_anchors.graceTime 1.0
 viewUnits -updates 3
 
 # resume training with the final epoch of a fully-trained PMSP network
-loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-${random_seed}/weights/2000.wt.gz"
+loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-${random_seed}/weights/1999.wt.gz"
 # loadWeights "${root_path}/var/net/${script_name}/weights/2000.wt.gz"
 
 train -a "deltaBarDelta" -setOnly
