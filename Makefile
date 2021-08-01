@@ -17,19 +17,12 @@ lens:
 		-v ~/.lens-storage:/home/lens/storage \
 		iandennismiller/lens
 
-example-dilution-2:
-	SETTINGS=~/.dilution-deadline-study.ini \
-		python3 bin/create-example-file.py \
-		create_examples \
-		--dilution 2
-
-example-dilution-3:
-	SETTINGS=~/.dilution-deadline-study.ini \
-		python3 bin/create-example-file.py \
-		create_examples \
-		--dilution 3
+examples:
+	bin/create-for-partition.sh 0
+	bin/create-for-partition.sh 1
+	bin/create-for-partition.sh 2
 
 requirements-python:
 	pip install click jsfsdb
 
-.PHONY: all requirements lens
+.PHONY: all requirements lens examples

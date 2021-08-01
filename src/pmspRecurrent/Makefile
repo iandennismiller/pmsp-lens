@@ -57,6 +57,9 @@ train-dt-100-dilution-2:
 train-dt-100-dilution-3:
 	PMSP_RANDOM_SEED=2 PMSP_DILUTION=3 /opt/Lens-linux/Bin/alens.sh scripts/train-cogsci-dt-100-dilution-n.tcl
 
+train-straight-through:
+	./scripts/straight-through.sh
+
 # accuracy (only if not produced during training)
 
 accuracy-pmsp:
