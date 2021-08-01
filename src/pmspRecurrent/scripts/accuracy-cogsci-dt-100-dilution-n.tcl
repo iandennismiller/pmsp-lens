@@ -17,13 +17,18 @@ puts "Dilution amount: $dilution_amount"
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed"
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-calibrated"
 
 # all relative to ./scripts
 set root_path "../../.."
-set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/${script_name}"
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-calibrated-n${dilution_amount}.ex"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
+
+file mkdir $results_path
+file mkdir $weights_path
 
 set loggingInterval 1
 

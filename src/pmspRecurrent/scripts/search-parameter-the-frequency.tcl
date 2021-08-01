@@ -5,7 +5,7 @@
 
 # all relative to ./scripts
 set root_path "../../.."
-set output_file "$root_path/var/results/search-parameter-the-frequency-dt-100-full-epochs-300.txt"
+set output_file "$root_path/var/results/search-parameter-the-frequency-dt-100-full-epochs-300-big-epoch3000.txt"
 
 ###
 # Network Architecture
@@ -62,18 +62,21 @@ setObj testGroupCrit 0.5
 # 001 = s/0.1914307167/0.01/g
 
 # set freqs [ list 01 001 ]
-set freqs [ list 000001 00001 0001 001 01 0002 0003 0004 0005 0006 0007 0008 0009 ]
+set freqs [ list 000001 00001 0001 001 01 1 10 100 1000 10000 100000 ]
 # set freqs [ list 0001 0002 0003 0004 0005 0006 0007 0008 0009 001 ]
+
+set example_test_file "${root_path}/usr/examples/pmsp-train-the-normalized.ex"
+loadExamples $example_test_file -s "vocab_pmsp"
+exampleSetMode "vocab_pmsp" PERMUTED
+useTestingSet "vocab_pmsp"
 
 foreach {freq} $freqs {
     puts "frequency: $freq"
 
     set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-n1-freq-$freq.ex"
-
     loadExamples $example_file -s "vocab_anchors"
     exampleSetMode "vocab_anchors" PERMUTED
     useTrainingSet "vocab_anchors"
-    useTestingSet "vocab_anchors"
 
     setObj vocab_anchors.minTime 2.0
     setObj vocab_anchors.maxTime 2.0
@@ -82,7 +85,7 @@ foreach {freq} $freqs {
     # setObj test.group.crit 0.5
 
     # resume training with the final epoch of a fully-trained PMSP network
-    loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-1/weights/1999.wt.gz"
+    loadWeights "${root_path}/var/net/pmsp-recurrent-dt-100-seed-1/weights/3000.wt.gz"
 
     train -a "deltaBarDelta" -setOnly
     setObj momentum 0.98
@@ -91,7 +94,7 @@ foreach {freq} $freqs {
 
     # just retrain until min test error is 95%
 
-    for { set epoch_idx 2000} {$epoch_idx < 2300} {incr epoch_idx} {
+    for { set epoch_idx 3000} {$epoch_idx <= 3300} {incr epoch_idx} {
         train 1
         test
 
@@ -105,3 +108,4 @@ foreach {freq} $freqs {
 
 }
 
+exit

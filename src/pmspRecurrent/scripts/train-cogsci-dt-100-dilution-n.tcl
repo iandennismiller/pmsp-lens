@@ -160,3 +160,5 @@ train -a steepest -setOnly
 train 1
 
 saveAccuracyResults "${results_path}/accuracy-training.tsv"
+
+exit

@@ -156,12 +156,13 @@ setObj momentum 0.9
 train 190
 
 setObj momentum 0.98
-train 1800
+train 2800
 
 # reset accumulated evidence
 setObj learningRate 0
 train -a steepest -setOnly
 train 1
 
-# exit
 saveAccuracyResults "${results_path}/accuracy-training.tsv"
+
+exit

@@ -8,8 +8,8 @@ set dt 100
 set start_epoch 0
 set end_epoch 2000
 
-set random_seed 1
-seed $random_seed
+set random_seed $::env(PMSP_RANDOM_SEED)
+puts "Random seed: $random_seed"
 
 # unique name of this script, for naming saved weights
 set script_name "pmsp-recurrent-dt-100-seed-$random_seed"
