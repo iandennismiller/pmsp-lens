@@ -44,7 +44,14 @@ def generate(partition_map_id, partition_map_list, dilution, frequency):
     for partition_map_idx in partition_map_list:
         for anchor in partition_map.get_partitions()[partition_map_idx].anchors:
             # print(anchor)
-            print(f"name: {{{count}_{anchor.orthography}_{anchor.phonology.replace('/', '')}_ANC_UNK}}")
+
+            type_str = "ANC_REG"
+            if anchor.type == "exception":
+                type_str = "ANC_EXC"
+            elif anchor.type == "ambiguous":
+                type_str = "ANC_AMB"
+
+            print(f"name: {{{count}_{anchor.orthography}_{anchor.phonology.replace('/', '')}_{type_str}}}")
 
             # print(anchor.orthography)
             print(f"freq: {frequency / dilution:0.8f}")
