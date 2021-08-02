@@ -117,8 +117,8 @@ activations-probes-dilution-3:
 # experiment:
 # 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 
-# activations-fig18:
-# 	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18.tcl
+activations-fig18:
+	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100.tcl
 
 # train-10-ticks-dt-1:
 # 	time /opt/Lens-linux/Bin/alens.sh scripts/train-10-ticks-dt-1.tcl

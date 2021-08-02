@@ -5,37 +5,37 @@
 # source ../pmspRecurrent.tcl
 source ../util/activations.tcl
 
-set stage 1
+set dt 100
 
-# we start with dt = 5, then dt = 20, and finally dt = 100
-if { $stage == 1 } {
-    set dt 100
-    set start_epoch 0
-    set end_epoch 1900
-}
-# if { $stage == 2 } {
-#     set dt 20
-#     set start_epoch 1801
-#     set end_epoch 1850
-# }
-# if { $stage == 3 } {
-#     set dt 100
-#     set start_epoch 1851
-#     set end_epoch 1900
-# }
+set start_epoch 0
+set end_epoch 3182
 
-# these are relative to ./scripts
-set weights_path "/home/idm/scratch/pmsp-weights/pmsp-study-3-replication-7"
-set examples_path "../../../usr/examples"
-set results_path "../../../var/results/2021-03-29-dt-100-2"
+set random_seed $::env(PMSP_RANDOM_SEED)
+puts "Random seed: $random_seed"
+set dilution_amount $::env(PMSP_DILUTION)
+puts "Dilution amount: $dilution_amount"
+set partition_id $::env(PMSP_PARTITION)
+puts "Partition ID: $partition_id"
+
+# reproducible
+seed $random_seed
+
+# unique name of this script, for naming saved weights
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-partition-$partition_id-straight-through"
+
+# all relative to ./scripts
+set root_path "../../.."
+set examples_path "${root_path}/usr/examples"
+set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-calibrated-n${dilution_amount}.ex"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
 
 global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-output.txt" w ]
+set log_outputs_filename [open "${results_path}/activations-fig18-output.txt" w ]
 
 global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-hidden.txt" w ]
-
-seed 1
+set log_hidden_filename [open "${results_path}/activations-fig18-hidden.txt" w ]
 
 ###
 # Network Architecture
