@@ -51,8 +51,8 @@ file mkdir $weights_path
 ###
 # Network Architecture
 
-# set dt 100
-set dt 1
+set dt 100
+# set dt 1
 
 addNet "pmspRecurrent" -i 2 -t $dt CONTINUOUS
 
@@ -113,7 +113,7 @@ proc save_weights_hook {} {
     set epoch [ getObj totalUpdates ]
     saveWeights "${weights_path}/${epoch}.wt.gz"
 }
-# setObj postEpochProc { save_weights_hook }
+setObj postEpochProc { save_weights_hook }
 
 # Log accuracy throughout training
 source ../util/accuracy.tcl

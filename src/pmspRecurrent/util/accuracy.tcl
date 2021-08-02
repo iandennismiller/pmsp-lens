@@ -49,7 +49,7 @@ proc checkExampleAccuracy {} {
     
     # puts "$exampleName"
 
-    regexp {^(\d+)_(\w+?)_(\w+?)_(.+)$} $exampleName match id orthography phonology category
+    regexp {^(\d+)_(\S+?)_(\S+?)_(.+)$} $exampleName match id orthography phonology category
     # puts "$exampleName $id"
 
     # get error from phono_vowel output layer
