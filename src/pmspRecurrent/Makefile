@@ -118,7 +118,8 @@ activations-probes-dilution-3:
 # 	time /opt/Lens-linux/Bin/alens.sh scripts/experiment.tcl
 
 activations-fig18:
-	time /opt/Lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100.tcl
+	PMSP_RANDOM_SEED=1 PMSP_DILUTION=1 PMSP_PARTITION=1 \
+		~/lens-linux/Bin/alens.sh scripts/activations-fig18-dt-100.tcl
 
 # train-10-ticks-dt-1:
 # 	time /opt/Lens-linux/Bin/alens.sh scripts/train-10-ticks-dt-1.tcl
