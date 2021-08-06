@@ -23,19 +23,17 @@ set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_
 
 # all relative to ./scripts
 set root_path "../../.."
-set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set results_path "${root_path}/var/results/${script_name}"
-
 set example_file "${examples_path}/probes-new-2021-08-04.ex"
+
+set weights_path "${root_path}/var/net/${script_name}/weights"
+set results_path "${root_path}/var/net/${script_name}/results"
 
 global log_outputs_filename
 set log_outputs_filename [open "${results_path}/activations-probes-output.txt" w ]
 
 global log_hidden_filename
 set log_hidden_filename [open "${results_path}/activations-probes-hidden.txt" w ]
-
-seed 1
 
 ###
 # Network Architecture

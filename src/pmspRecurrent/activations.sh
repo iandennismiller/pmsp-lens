@@ -45,10 +45,10 @@ function run_one_partition_probes {
 # run_one_partition_fig18 1 &
 # run_one_partition_fig18 2 &
 
-run_one_partition_anchors 0 &
-run_one_partition_anchors 1 &
-run_one_partition_anchors 2 &
+# run_one_partition_anchors 0 &
+# run_one_partition_anchors 1 &
+# run_one_partition_anchors 2 &
 
-# run_one_partition_probes 0 &
-# run_one_partition_probes 1 &
-# run_one_partition_probes 2 &
+run_one_partition_probes 0 &
+run_one_partition_probes 1 &
+run_one_partition_probes 2 &
