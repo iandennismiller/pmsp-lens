@@ -21,6 +21,9 @@ examples:
 	bin/create-for-partition.sh 0
 	bin/create-for-partition.sh 1
 	bin/create-for-partition.sh 2
+	SETTINGS=~/.dilution-deadline-study.ini \
+		bin/create-example-file.py create_probes --frequency 1.0 > \
+		usr/examples/probes-new-2021-08-04.ex
 
 requirements-python:
 	pip install click jsfsdb

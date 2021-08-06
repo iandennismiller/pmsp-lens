@@ -5,36 +5,37 @@
 source ../util/activations.tcl
 
 set dt 100
-set start_epoch 2000
+set start_epoch 0
 set end_epoch 3999
 
 set random_seed $::env(PMSP_RANDOM_SEED)
 puts "Random seed: $random_seed"
 set dilution_amount $::env(PMSP_DILUTION)
 puts "Dilution amount: $dilution_amount"
+set partition_id $::env(PMSP_PARTITION)
+puts "Partition ID: $partition_id"
 
 # reproducible
 seed $random_seed
 
 # unique name of this script, for naming saved weights
-set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-calibrated"
+set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-partition-$partition_id-straight-through"
 
 # all relative to ./scripts
 set root_path "../../.."
+set weights_path "${root_path}/var/weights/${script_name}"
 set examples_path "${root_path}/usr/examples"
-set example_file "${root_path}/usr/examples/pmsp-added-anchors-the-normalized-calibrated-n${dilution_amount}.ex"
+set results_path "${root_path}/var/results/${script_name}"
 
-set weights_path "${root_path}/var/net/${script_name}/weights"
-set results_path "${root_path}/var/net/${script_name}/results"
-
-file mkdir $results_path
-file mkdir $weights_path
+set example_file "${examples_path}/probes-new-2021-08-04.ex"
 
 global log_outputs_filename
-set log_outputs_filename [open "${results_path}/activations-anchors-output.txt" w ]
+set log_outputs_filename [open "${results_path}/activations-probes-output.txt" w ]
 
 global log_hidden_filename
-set log_hidden_filename [open "${results_path}/activations-anchors-hidden.txt" w ]
+set log_hidden_filename [open "${results_path}/activations-probes-hidden.txt" w ]
+
+seed 1
 
 ###
 # Network Architecture
@@ -93,7 +94,7 @@ viewUnits -updates 3
 # could set target history property?
 # consider testing the "-numexamples 2" and manually run through a couple
 
-for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 10 } {
+for { set epoch $start_epoch } { $epoch <= $end_epoch } { incr epoch 1 } {
     puts "value of epoch: $epoch"
 
     # load a network that has been already trained

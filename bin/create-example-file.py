@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import sys
 sys.path.insert(0, '/home/idm/Work/word-learning-jspsych/src')
@@ -8,6 +8,7 @@ import configparser
 import os
 from jsfsdb import jsfsdb
 import click
+import pandas as pd
 
 from warping_dilution_study.models.partition import PartitionMap
 from warping_dilution_study.models.stimuli import StimulusDatabase
@@ -68,6 +69,28 @@ def generate(partition_map_id, partition_map_list, dilution, frequency):
             count += 1
 
 
+def generate_probes(frequency):
+
+    count = 0
+
+    df = pd.read_csv('usr/data/probes_2021-07-29.csv')
+
+    for idx, row in df.iterrows():
+
+        print(f"name: {{{count}_{row.orth}_{row.phon.replace('/', '')}_{row.type}}}")
+
+        print(f"freq: {frequency:0.8f}")
+
+        orthography_vector = graphemes.get_graphemes(row.orth)
+        print(f"I: {' '.join([str(x) for x in orthography_vector])}")
+
+        phonology_vector = phonemes.get_phonemes(row.phon)
+        print(f"T: {' '.join([str(x) for x in phonology_vector])};")
+        print()
+
+        count += 1
+
+
 @click.group()
 def cli():
     pass
@@ -86,7 +109,16 @@ def create_examples(dilution, partition, frequency):
     )
 
 
+@click.command('create_probes', short_help='Create probes example file.')
+@click.option('--frequency', required=True, help='Probe frequency.')
+def create_probes(frequency):
+    generate_probes(
+        frequency=float(frequency),
+    )
+
+
 cli.add_command(create_examples)
+cli.add_command(create_probes)
 
 
 if __name__ == '__main__':

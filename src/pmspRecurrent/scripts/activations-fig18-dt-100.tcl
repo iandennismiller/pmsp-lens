@@ -8,7 +8,7 @@ source ../util/activations.tcl
 set dt 100
 
 set start_epoch 0
-set end_epoch 3182
+set end_epoch 3999
 
 set random_seed $::env(PMSP_RANDOM_SEED)
 puts "Random seed: $random_seed"
