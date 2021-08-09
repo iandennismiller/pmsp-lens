@@ -36,14 +36,15 @@ seed $random_seed
 set script_name "cogsci-recurrent-dt-100-dilution-$dilution_amount-seed-$random_seed-partition-$partition_id-straight-through"
 
 # all relative to ./scripts
-set root_path "../../.."
-set examples_path "${root_path}/usr/examples"
+# set root_path "../../.."
+set root_path "."
+set examples_path "${root_path}/examples"
 
 set pmsp_example_file "${examples_path}/pmsp-train-the-normalized.ex"
 set cogsci_example_file "${examples_path}/cogsci-pmsp-added-partition-$partition_id-dilution-${dilution_amount}.ex"
 
-set weights_path "${root_path}/var/net/${script_name}/weights"
-set results_path "${root_path}/var/net/${script_name}/results"
+set weights_path "${root_path}/var/${script_name}/weights"
+set results_path "${root_path}/var/${script_name}/results"
 
 file mkdir $results_path
 file mkdir $weights_path
@@ -116,7 +117,7 @@ proc save_weights_hook {} {
 setObj postEpochProc { save_weights_hook }
 
 # Log accuracy throughout training
-source ../util/accuracy.tcl
+source "accuracy.tcl"
 set loggingInterval 1
 setObj postExampleProc { logAccuracyHook }
 
@@ -184,6 +185,7 @@ train 1
 useTrainingSet "vocab_cogsci"
 
 train -a "deltaBarDelta" -setOnly
+setObj learningRate 0.05
 setObj momentum 0.98
 train 2000
 
