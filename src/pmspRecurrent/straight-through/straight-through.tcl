@@ -175,9 +175,9 @@ setObj momentum 0.98
 train 1800
 
 # reset accumulated evidence
-setObj learningRate 0
-train -a steepest -setOnly
-train 1
+# setObj learningRate 0
+# train -a steepest -setOnly
+# train 1
 
 ###
 # Training: CogSci Replication
@@ -185,8 +185,8 @@ train 1
 useTrainingSet "vocab_cogsci"
 
 train -a "deltaBarDelta" -setOnly
-setObj learningRate 0.05
-setObj momentum 0.98
+# setObj learningRate 0.05
+# setObj momentum 0.98
 train 2000
 
 saveAccuracyResults "${results_path}/accuracy-training.tsv"
